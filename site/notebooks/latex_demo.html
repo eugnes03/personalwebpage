@@ -254,7 +254,10 @@ window.Quarto = {
   <li><a href="#advanced-equations" id="toc-advanced-equations" class="nav-link" data-scroll-target="#advanced-equations"><span class="header-section-number">1.5</span> Advanced Equations</a></li>
   <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices"><span class="header-section-number">1.6</span> Matrices</a></li>
   <li><a href="#code-math" id="toc-code-math" class="nav-link" data-scroll-target="#code-math"><span class="header-section-number">1.7</span> Code + Math</a></li>
-  <li><a href="#tikz-diagrams" id="toc-tikz-diagrams" class="nav-link" data-scroll-target="#tikz-diagrams"><span class="header-section-number">1.8</span> TikZ Diagrams</a></li>
+  <li><a href="#tikz-diagrams" id="toc-tikz-diagrams" class="nav-link" data-scroll-target="#tikz-diagrams"><span class="header-section-number">1.8</span> TikZ Diagrams</a>
+  <ul class="collapse">
+  <li><a href="#function-plot-example" id="toc-function-plot-example" class="nav-link" data-scroll-target="#function-plot-example"><span class="header-section-number">1.8.1</span> Function Plot Example</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -405,46 +408,38 @@ window.Quarto = {
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">:caption</span> <span class="st">"A commutative diagram"</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">:width</span> <span class="st">"50%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<figure class="figure"><img class="tikz-diagram figure-img" src="images/tikz/commutative-diagram.png" style="width:50%"><figcaption>A commutative diagram</figcaption></figure>
+<section id="function-plot-example" class="level3" data-number="1.8.1">
+<h3 data-number="1.8.1" class="anchored" data-anchor-id="function-plot-example"><span class="header-section-number">1.8.1</span> Function Plot Example</h3>
+<div class="sourceClojure">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode clojure code-with-copy"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(tikz/render</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\\</span><span class="st">begin{tikzpicture}</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\\</span><span class="st">begin{axis}[</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">      xlabel=$x$,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">      ylabel=$y$,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">      domain=-2:2,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">      samples=100,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">      grid=major,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">      width=10cm,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">      height=6cm</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">    ]</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\\</span><span class="st">addplot[blue, thick] {x^2};</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\\</span><span class="st">addplot[red, thick, dashed] {x^3};</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">      </span><span class="sc">\\</span><span class="st">legend{$x^2$, $x^3$}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">\\</span><span class="st">end{axis}</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">   </span><span class="sc">\\</span><span class="st">end{tikzpicture}"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"function-plot"</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">:caption</span> <span class="st">"Polynomial functions"</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">:width</span> <span class="st">"70%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Cannot run program “convert”: error=2, No such file or directory
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>error=2, No such file or directory</p>
-<pre><code>                clojure.core/eval             core.clj: 3232
-                              ...                          
-             latex-demo/eval34344           REPL Input:     
-                              ...                          
-                      tikz/render           REPL Input:      (repeats 2 times)
-                              ...                          
-            clojure.java.shell/sh            shell.clj:   79
-            clojure.java.shell/sh            shell.clj:  113
-           java.lang.Runtime.exec         Runtime.java:  605
-   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1044
-   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1076
-      java.lang.ProcessImpl.start     ProcessImpl.java:  221
-     java.lang.ProcessImpl.&lt;init&gt;     ProcessImpl.java:  290
-java.lang.ProcessImpl.forkAndExec     ProcessImpl.java:     
-java.io.IOException: error=2, No such file or directory
-java.io.IOException: Cannot run program "convert": error=2, No such file or directory
-
-</code></pre>
-</div>
-</div>
-</div>
+<figure class="figure"><img class="tikz-diagram figure-img" src="images/tikz/function-plot.png" style="width:70%"><figcaption>Polynomial functions</figcaption></figure>
 <div style="background-color:grey;height:2px;width:100%;"></div>
 <div><pre><small><small>source: <a href="https://github.com/eugnes03/personalwebpage/blob/main/notebooks/latex-demo.clj">notebooks/latex-demo.clj</a></small></small></pre></div>
 
 
 <!-- -->
 
+</section>
 </section>
 </section>
 
@@ -1063,42 +1058,56 @@ java.io.IOException: Cannot run program "convert": error=2, No such file or dire
 <span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse=false}</span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cannot run program "convert": error=2, No such file or directory</span></span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>error=2, No such file or directory</span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="in">                clojure.core/eval             core.clj: 3232</span></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="in">                              ...                          </span></span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="in">             latex-demo/eval34344           REPL Input:     </span></span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="in">                              ...                          </span></span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a><span class="in">                      tikz/render           REPL Input:      (repeats 2 times)</span></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="in">                              ...                          </span></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="in">            clojure.java.shell/sh            shell.clj:   79</span></span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="in">            clojure.java.shell/sh            shell.clj:  113</span></span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="in">           java.lang.Runtime.exec         Runtime.java:  605</span></span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="in">   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1044</span></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="in">   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1076</span></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="in">      java.lang.ProcessImpl.start     ProcessImpl.java:  221</span></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="in">     java.lang.ProcessImpl.&lt;init&gt;     ProcessImpl.java:  290</span></span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="in">java.lang.ProcessImpl.forkAndExec     ProcessImpl.java:     </span></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a><span class="in">java.io.IOException: error=2, No such file or directory</span></span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="in">java.io.IOException: Cannot run program "convert": error=2, No such file or directory</span></span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div style="background-color:grey;height:2px;width:100%;"&gt;&lt;/div&gt;</span></span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;figure&gt;&lt;img class="tikz-diagram" src="images/tikz/commutative-diagram.png" style="width:50%" /&gt;&lt;figcaption&gt;A commutative diagram&lt;/figcaption&gt;&lt;/figure&gt;</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Function Plot Example</span></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>::: {.sourceClojure}</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="in">```clojure</span></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="op">(</span>tikz<span class="op">/</span>render</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\\</span><span class="st">begin{tikzpicture}</span></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>    \\begin<span class="op">{</span>axis<span class="op">}[</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>      xlabel<span class="op">=</span>$x$<span class="op">,</span></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>      ylabel<span class="op">=</span>$y$<span class="op">,</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>      domain<span class="op">=-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span><span class="op">,</span></span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>      samples<span class="op">=</span><span class="dv">100</span><span class="op">,</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>      grid<span class="op">=</span>major<span class="op">,</span></span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>      width<span class="op">=</span><span class="dv">10</span><span class="er">cm</span><span class="op">,</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>      height<span class="op">=</span><span class="dv">6</span><span class="er">cm</span></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>    <span class="op">]</span></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>      \\addplot<span class="op">[</span>blue<span class="op">,</span> thick<span class="op">]</span> <span class="op">{</span>x<span class="op">^</span><span class="dv">2</span><span class="op">};</span></span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>      \\addplot<span class="op">[</span>red<span class="op">,</span> thick<span class="op">,</span> dashed<span class="op">]</span> <span class="op">{</span>x<span class="op">^</span><span class="dv">3</span><span class="op">};</span></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>      \\legend<span class="op">{</span>$x<span class="op">^</span><span class="dv">2</span>$<span class="op">,</span> $x<span class="op">^</span><span class="dv">3</span>$<span class="op">}</span></span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>    \\end<span class="op">{</span>axis<span class="op">}</span></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a>   \\end<span class="op">{</span>tikzpicture<span class="op">}</span><span class="st">"</span></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>  <span class="st">"function-plot"</span></span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span>caption <span class="st">"Polynomial functions"</span></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span>width <span class="st">"70%"</span><span class="op">)</span></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div&gt;&lt;pre&gt;&lt;small&gt;&lt;small&gt;source: &lt;a href="https://github.com/eugnes03/personalwebpage/blob/main/notebooks/latex-demo.clj"&gt;notebooks/latex-demo.clj&lt;/a&gt;&lt;/small&gt;&lt;/small&gt;&lt;/pre&gt;&lt;/div&gt;</span></span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;figure&gt;&lt;img class="tikz-diagram" src="images/tikz/function-plot.png" style="width:70%" /&gt;&lt;figcaption&gt;Polynomial functions&lt;/figcaption&gt;&lt;/figure&gt;</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div style="background-color:grey;height:2px;width:100%;"&gt;&lt;/div&gt;</span></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div&gt;&lt;pre&gt;&lt;small&gt;&lt;small&gt;source: &lt;a href="https://github.com/eugnes03/personalwebpage/blob/main/notebooks/latex-demo.clj"&gt;notebooks/latex-demo.clj&lt;/a&gt;&lt;/small&gt;&lt;/small&gt;&lt;/pre&gt;&lt;/div&gt;</span></span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -161,30 +161,44 @@ Use the `tikz` namespace to render diagrams:
 
 
 
-::: {.callout-important collapse=false}
-## Cannot run program "convert": error=2, No such file or directory
-error=2, No such file or directory
+```{=html}
+<figure><img class="tikz-diagram" src="images/tikz/commutative-diagram.png" style="width:50%" /><figcaption>A commutative diagram</figcaption></figure>
 ```
-                clojure.core/eval             core.clj: 3232
-                              ...                          
-             latex-demo/eval34344           REPL Input:     
-                              ...                          
-                      tikz/render           REPL Input:      (repeats 2 times)
-                              ...                          
-            clojure.java.shell/sh            shell.clj:   79
-            clojure.java.shell/sh            shell.clj:  113
-           java.lang.Runtime.exec         Runtime.java:  605
-   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1044
-   java.lang.ProcessBuilder.start  ProcessBuilder.java: 1076
-      java.lang.ProcessImpl.start     ProcessImpl.java:  221
-     java.lang.ProcessImpl.<init>     ProcessImpl.java:  290
-java.lang.ProcessImpl.forkAndExec     ProcessImpl.java:     
-java.io.IOException: error=2, No such file or directory
-java.io.IOException: Cannot run program "convert": error=2, No such file or directory
 
 
+
+### Function Plot Example
+
+
+::: {.sourceClojure}
+```clojure
+(tikz/render
+  "\\begin{tikzpicture}
+    \\begin{axis}[
+      xlabel=$x$,
+      ylabel=$y$,
+      domain=-2:2,
+      samples=100,
+      grid=major,
+      width=10cm,
+      height=6cm
+    ]
+      \\addplot[blue, thick] {x^2};
+      \\addplot[red, thick, dashed] {x^3};
+      \\legend{$x^2$, $x^3$}
+    \\end{axis}
+   \\end{tikzpicture}"
+  "function-plot"
+  :caption "Polynomial functions"
+  :width "70%")
 ```
 :::
+
+
+
+```{=html}
+<figure><img class="tikz-diagram" src="images/tikz/function-plot.png" style="width:70%" /><figcaption>Polynomial functions</figcaption></figure>
+```
 
 
 
