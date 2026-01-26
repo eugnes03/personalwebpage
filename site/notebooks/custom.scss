@@ -1,0 +1,308 @@
+/*-- scss:defaults --*/
+
+// Typography - Times New Roman for content, system fonts for UI
+$font-family-sans-serif: "Times New Roman", Times, serif;
+$font-family-monospace: "Fira Code", "Source Code Pro", Consolas, monospace;
+
+// Colors matching main site
+$primary: #007bff;
+$body-bg: #fff;
+$body-color: #333;
+$link-color: #007bff;
+
+// Content width
+$max-width: 800px;
+
+/*-- scss:rules --*/
+
+// ============================================
+// NAVBAR - Match main site styling
+// ============================================
+.navbar {
+  background: #fff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  padding: 1rem 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  color: #333 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.navbar-nav .nav-link {
+  color: #666 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  transition: color 0.3s !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #007bff !important;
+}
+
+// ============================================
+// MAIN CONTENT AREA
+// ============================================
+body {
+  font-family: "Times New Roman", Times, serif;
+  line-height: 1.8;
+  color: #333;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+#quarto-content {
+  max-width: $max-width;
+  margin: 2rem auto;
+  padding: 0 20px;
+  min-height: calc(100vh - 200px);
+}
+
+main.content {
+  text-align: left;
+}
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+h1, h2, h3, h4, h5, h6 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  color: #333;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+// Page title styling
+h1.title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  border: none;
+  padding-bottom: 0;
+}
+
+.quarto-title-meta {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+}
+
+// ============================================
+// CODE BLOCKS
+// ============================================
+pre {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+code {
+  font-family: $font-family-monospace;
+  font-size: 0.9em;
+}
+
+p code, li code {
+  background-color: #f8f9fa;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: #e83e8c;
+}
+
+div.sourceCode {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+// ============================================
+// MATH DISPLAY
+// ============================================
+.math-display, .MathJax_Display {
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+
+mjx-container[jax="CHTML"][display="true"] {
+  margin: 2rem 0 !important;
+}
+
+// ============================================
+// TABLES
+// ============================================
+table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+// ============================================
+// BLOCKQUOTES
+// ============================================
+blockquote {
+  border-left: 4px solid #007bff;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  color: #555;
+  font-style: italic;
+}
+
+// ============================================
+// LINKS & BUTTONS
+// ============================================
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.btn, button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.btn:hover, button:hover {
+  background: #0056b3;
+}
+
+// ============================================
+// TABLE OF CONTENTS
+// ============================================
+#TOC {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid #e9ecef;
+}
+
+#TOC a {
+  color: #666;
+}
+
+#TOC a:hover {
+  color: #007bff;
+}
+
+// ============================================
+// FIGURES & IMAGES
+// ============================================
+figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+figcaption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+// TikZ diagrams
+.tikz-diagram {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+}
+
+// ============================================
+// FOOTER
+// ============================================
+footer, .nav-footer {
+  background: #f8f9fa !important;
+  padding: 2rem 0 !important;
+  text-align: center !important;
+  margin-top: 4rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+// ============================================
+// CARDS (for any card-like elements)
+// ============================================
+.card, .callout {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover, .callout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+  #quarto-content {
+    padding: 0 15px;
+  }
+
+  h1.title {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,107 @@
+project:
+  type: website
+
+website:
+  title: "Eugen Nesbakken"
+  navbar:
+    background: light
+    left:
+      - text: "Eugen Nesbakken"
+        href: ../index.html
+    right:
+      - text: "Home"
+        href: ../index.html
+      - text: "Blog"
+        href: ../blog.html
+      - text: "Portfolio"
+        href: ../portfolio.html
+      - text: "CV"
+        href: ../cv.html
+      - text: "About"
+        href: ../about.html
+  page-footer:
+    center: "© 2026 Eugen Nesbakken. All rights reserved."
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    toc: true
+    toc-depth: 4
+    number-sections: true
+    highlight-style: github
+    code-fold: false
+    code-tools: true
+    fontsize: 1.1em
+    mainfont: "Times New Roman"
+
+    # MathJax configuration for advanced LaTeX
+    html-math-method:
+      method: mathjax
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+
+    include-in-header:
+      - text: |
+          <script>
+          window.MathJax = {
+            tex: {
+              packages: {'[+]': ['ams', 'physics', 'boldsymbol', 'mathtools', 'cancel']},
+              inlineMath: [['$', '$'], ['\\(', '\\)']],
+              displayMath: [['$$', '$$'], ['\\[', '\\]']],
+              processEscapes: true,
+              processEnvironments: true,
+              macros: {
+                // Common shortcuts
+                R: '\\mathbb{R}',
+                N: '\\mathbb{N}',
+                Z: '\\mathbb{Z}',
+                C: '\\mathbb{C}',
+                Q: '\\mathbb{Q}',
+                vec: ['\\mathbf{#1}', 1],
+                norm: ['\\left\\lVert #1 \\right\\rVert', 1],
+                abs: ['\\left| #1 \\right|', 1],
+                inner: ['\\langle #1, #2 \\rangle', 2],
+                // Calculus
+                dd: ['\\mathrm{d}#1', 1],
+                dv: ['\\frac{\\mathrm{d} #1}{\\mathrm{d} #2}', 2],
+                pdv: ['\\frac{\\partial #1}{\\partial #2}', 2],
+                // Probability
+                E: ['\\mathbb{E}\\left[#1\\right]', 1],
+                Var: ['\\mathrm{Var}\\left(#1\\right)', 1],
+                Cov: ['\\mathrm{Cov}\\left(#1, #2\\right)', 2],
+                Prob: ['\\mathbb{P}\\left(#1\\right)', 1]
+              }
+            },
+            loader: {
+              load: ['[tex]/ams', '[tex]/physics', '[tex]/boldsymbol', '[tex]/mathtools', '[tex]/cancel']
+            },
+            chtml: {
+              scale: 1,
+              minScale: 0.5
+            }
+          };
+          </script>
+          <style>
+            /* Ensure Times New Roman for body text */
+            body, p, li, td, th {
+              font-family: "Times New Roman", Times, serif !important;
+            }
+          </style>
+
+# For PDF output (if needed)
+pdf:
+  documentclass: article
+  papersize: letter
+  geometry:
+    - margin=1in
+  include-in-header:
+    - text: |
+        \usepackage{amsmath}
+        \usepackage{amssymb}
+        \usepackage{amsthm}
+        \usepackage{physics}
+        \usepackage{mathtools}
+        \usepackage{cancel}
+        \usepackage{tikz}
+        \usetikzlibrary{arrows,positioning,calc,shapes,backgrounds}

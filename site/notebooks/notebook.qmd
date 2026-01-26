@@ -1,0 +1,14 @@
+---
+title: "Notebooks"
+listing:
+  contents: [".", "!./*.qmd"]
+  include:
+    type: post
+  sort:
+    - "date desc"
+    - "title desc"
+  sort-ui: true
+  filter-ui: true
+  feed:
+    type: metadata
+---

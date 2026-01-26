@@ -1,0 +1,42 @@
+[
+  {
+    "title": "tikz – Eugen Nesbakken",
+    "date": "2026-01-26",
+    "url": "notebooks/tikz.html",
+    "excerpt": "Convenience macros for common diagram types...",
+    "author": "Eugen Nesbakken",
+    "category": "general",
+    "tags": [],
+    "filename": "tikz.html"
+  },
+  {
+    "title": "Example – Eugen Nesbakken",
+    "date": "2025-10-02",
+    "url": "notebooks/example.html",
+    "excerpt": "Example notebook",
+    "author": "Eugen",
+    "category": "general",
+    "tags": [],
+    "filename": "example.html"
+  },
+  {
+    "title": "Example – Eugen Nesbakken",
+    "date": "2025-10-02",
+    "url": "notebooks/example2.html",
+    "excerpt": "Example notebook 2",
+    "author": "Eugen",
+    "category": "general",
+    "tags": [],
+    "filename": "example2.html"
+  },
+  {
+    "title": "LaTeX Demo – Eugen Nesbakken",
+    "date": "2025-01-25",
+    "url": "notebooks/latex_demo.html",
+    "excerpt": "Demonstrating advanced LaTeX features",
+    "author": "Eugen Nesbakken",
+    "category": "general",
+    "tags": [],
+    "filename": "latex_demo.html"
+  }
+]

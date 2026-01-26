@@ -1,0 +1,8 @@
+---
+title: "Notebooks"
+---
+
+-------
+[List of notebooks](notebook.qmd)
+
+[About](about.qmd)

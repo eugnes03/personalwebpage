@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eugen Nesbakken - Home</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Eugen Nesbakken</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Hi! This is my personal webpage!</h1>
+            <p>I post my thoughts and findings!</p>
+        </section>
+
+        <section class="quick-links">
+            <h2>Quick Links</h2>
+            <div class="link-grid">
+                <a href="blog.html" class="link-card">
+                    <h3>Blog</h3>
+                    <p>Interactive notebooks and technical writings</p>
+                </a>
+                <a href="portfolio.html" class="link-card">
+                    <h3>Portfolio</h3>
+                    <p>Projects and work samples</p>
+                </a>
+                <a href="cv.html" class="link-card">
+                    <h3>CV</h3>
+                    <p>My curriculum vitae</p>
+                </a>
+                <a href="about.html" class="link-card">
+                    <h3>About</h3>
+                    <p>Learn more about me</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="recent-posts">
+            <h2>Recent Posts</h2>
+            <div id="recent-posts-container" class="posts-preview">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Eugen Nesbakken. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRecentPosts(3);
+        });
+    </script>
+</body>
+</html>

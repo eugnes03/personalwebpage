@@ -86,9 +86,13 @@ output.calva-repl
 **/.calva/repl.calva-repl
 
 
-# MkDocs
-/site/
+# MkDocs (commented out - we need to track site/)
+# /site/
 .cache/
+
+# Quarto generated files (keep source, ignore build artifacts)
+site/notebooks/_site/
+site/notebooks/.quarto/
 
 # Calva dev
 clojure.tmLanguage.json

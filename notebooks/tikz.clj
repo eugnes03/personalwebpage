@@ -1,0 +1,136 @@
+(ns tikz
+  "TikZ diagram rendering utilities for Clay notebooks.
+
+   Usage:
+     (tikz/render \"\\\\begin{tikzpicture}...\\\\end{tikzpicture}\" \"diagram-name\")
+
+   Requirements:
+     - pdflatex (TeX Live or MacTeX)
+     - ImageMagick (convert) or poppler-utils (pdftoppm)"
+  (:require [clojure.java.shell :refer [sh]]
+            [clojure.java.io :as io]
+            [scicloj.kindly.v4.kind :as kind])
+  (:import [java.io File]
+           [java.nio.file Files]
+           [java.nio.file.attribute FileAttribute]))
+
+(def ^:private output-dir "site/notebooks/images/tikz")
+
+(defn- ensure-output-dir []
+  (let [dir (io/file output-dir)]
+    (when-not (.exists dir)
+      (.mkdirs dir))))
+
+(defn- create-latex-doc [tikz-code]
+  (str "\\documentclass[tikz,border=10pt]{standalone}\n"
+       "\\usepackage{amsmath}\n"
+       "\\usepackage{amssymb}\n"
+       "\\usepackage{tikz}\n"
+       "\\usetikzlibrary{arrows.meta,positioning,calc,shapes,backgrounds,"
+       "decorations.pathmorphing,decorations.markings,patterns,matrix,fit,chains}\n"
+       "\\usepackage{pgfplots}\n"
+       "\\pgfplotsset{compat=1.18}\n"
+       "\\begin{document}\n"
+       tikz-code "\n"
+       "\\end{document}\n"))
+
+(defn render
+  "Render TikZ code to PNG and return a Kindly image element.
+
+   Arguments:
+     tikz-code - TikZ code (with or without \\begin{tikzpicture})
+     name      - Unique name for the diagram (used for filename)
+
+   Options:
+     :dpi      - Resolution (default 300)
+     :caption  - Figure caption
+     :width    - CSS width (e.g., \"80%\" or \"400px\")
+
+   Example:
+     (render
+       \"\\\\begin{tikzpicture}
+         \\\\draw (0,0) -- (1,1);
+        \\\\end{tikzpicture}\"
+       \"simple-line\"
+       :caption \"A simple line\")"
+  [tikz-code name & {:keys [dpi caption width]
+                     :or {dpi 300}}]
+  (ensure-output-dir)
+  (let [png-file (str output-dir "/" name ".png")
+        png-path (io/file png-file)]
+
+    ;; Only render if PNG doesn't exist (caching)
+    (when-not (.exists png-path)
+      (let [temp-dir (Files/createTempDirectory "tikz" (into-array FileAttribute []))
+            temp-tex (io/file (.toFile temp-dir) "tikz.tex")
+            temp-pdf (io/file (.toFile temp-dir) "tikz.pdf")]
+
+        ;; Write LaTeX file
+        (spit temp-tex (create-latex-doc tikz-code))
+
+        ;; Compile with pdflatex
+        (let [result (sh "pdflatex"
+                         "-interaction=nonstopmode"
+                         "-output-directory" (str temp-dir)
+                         (str temp-tex))]
+          (when-not (zero? (:exit result))
+            (throw (ex-info "pdflatex failed"
+                           {:exit (:exit result)
+                            :out (:out result)
+                            :err (:err result)}))))
+
+        ;; Convert to PNG
+        (let [result (sh "convert"
+                         "-density" (str dpi)
+                         (str temp-pdf)
+                         "-quality" "100"
+                         png-file)]
+          (when-not (zero? (:exit result))
+            ;; Try pdftoppm as fallback
+            (let [result2 (sh "pdftoppm" "-png" "-r" (str dpi)
+                              "-singlefile" (str temp-pdf)
+                              (str output-dir "/" name))]
+              (when-not (zero? (:exit result2))
+                (throw (ex-info "PNG conversion failed"
+                               {:convert-err (:err result)
+                                :pdftoppm-err (:err result2)}))))))))
+
+    ;; Return Kindly hiccup for the image
+    (let [rel-path (str "images/tikz/" name ".png")
+          img-elem (if width
+                     [:img {:src rel-path :class "tikz-diagram" :style (str "width:" width)}]
+                     [:img {:src rel-path :class "tikz-diagram"}])]
+      (kind/hiccup
+        (if caption
+          [:figure
+           img-elem
+           [:figcaption caption]]
+          img-elem)))))
+
+(defn render-raw
+  "Like render, but takes raw TikZ code without \\begin{tikzpicture}.
+   Automatically wraps the code in a tikzpicture environment."
+  [tikz-code name & opts]
+  (let [wrapped (str "\\begin{tikzpicture}\n" tikz-code "\n\\end{tikzpicture}")]
+    (apply render wrapped name opts)))
+
+;; Convenience macros for common diagram types
+
+(defn node-diagram
+  "Create a simple node-based diagram.
+
+   nodes - seq of [id label x y] or [id label x y opts]
+   edges - seq of [from to] or [from to label]"
+  [name nodes edges & {:keys [caption] :as opts}]
+  (let [node-strs (for [[id label x y node-opts] nodes]
+                    (format "\\node[draw,rectangle,rounded corners] (%s) at (%s,%s) {%s};"
+                            id x y label))
+        edge-strs (for [[from to label] edges]
+                    (if label
+                      (format "\\draw[->] (%s) -- node[above] {%s} (%s);" from label to)
+                      (format "\\draw[->] (%s) -- (%s);" from to)))
+        tikz-code (str "\\begin{tikzpicture}[node distance=2cm]\n"
+                       (clojure.string/join "\n" node-strs) "\n"
+                       (clojure.string/join "\n" edge-strs) "\n"
+                       "\\end{tikzpicture}")]
+    (apply render tikz-code name (mapcat identity opts))))

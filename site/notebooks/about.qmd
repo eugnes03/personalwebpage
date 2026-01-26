@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+Here, we collect our ongoing fruits of data research at Endor.
+
+The setup is inspired by [Clojure Civitas](https://clojurecivitas.github.io/).

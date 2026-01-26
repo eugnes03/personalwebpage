@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Blog Setup</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+        }
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .success {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .info {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+        pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Setup Test</h1>
+    <p>This page tests if your blog-posts.json file is accessible.</p>
+    
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        async function testBlogSetup() {
+            resultsDiv.innerHTML = '<div class="info">Testing blog setup...</div>';
+            
+            const tests = [];
+            
+            // Test 1: Check if file exists with different paths
+            const pathsToTry = [
+                'js/blog-posts.json',
+                '/js/blog-posts.json',
+                './js/blog-posts.json',
+                '../js/blog-posts.json'
+            ];
+            
+            tests.push('<h2>File Path Tests</h2>');
+            
+            for (const path of pathsToTry) {
+                try {
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        const data = await response.json();
+                        tests.push(`
+                            <div class="status success">
+                                <strong>✓ Success:</strong> Found file at <code>${path}</code>
+                                <br>Contains ${data.length} post(s)
+                            </div>
+                        `);
+                        
+                        if (data.length > 0) {
+                            tests.push(`
+                                <h3>Sample Post Data:</h3>
+                                <pre>${JSON.stringify(data[0], null, 2)}</pre>
+                            `);
+                        }
+                        
+                        break; // Found it!
+                    } else {
+                        tests.push(`
+                            <div class="status error">
+                                <strong>✗ Failed:</strong> <code>${path}</code> - HTTP ${response.status}
+                            </div>
+                        `);
+                    }
+                } catch (error) {
+                    tests.push(`
+                        <div class="status error">
+                            <strong>✗ Error:</strong> <code>${path}</code>
+                            <br>${error.message}
+                        </div>
+                    `);
+                }
+            }
+            
+            // Test 2: Show current location
+            tests.push(`
+                <h2>Current Page Info</h2>
+                <div class="status info">
+                    <strong>Protocol:</strong> ${window.location.protocol}<br>
+                    <strong>Host:</strong> ${window.location.host}<br>
+                    <strong>Pathname:</strong> ${window.location.pathname}<br>
+                    <strong>Full URL:</strong> ${window.location.href}
+                </div>
+            `);
+            
+            // Test 3: File existence check
+            tests.push(`
+                <h2>Troubleshooting Steps</h2>
+                <div class="status info">
+                    <ol>
+                        <li>Make sure you've run <code>./build.sh</code></li>
+                        <li>Check that <code>site/js/blog-posts.json</code> exists</li>
+                        <li>If testing locally, use a local server:
+                            <pre>cd site && python3 -m http.server 8000</pre>
+                        </li>
+                        <li>Check browser console (F12) for more errors</li>
+                    </ol>
+                </div>
+            `);
+            
+            resultsDiv.innerHTML = tests.join('');
+        }
+        
+        testBlogSetup();
+    </script>
+</body>
+</html>

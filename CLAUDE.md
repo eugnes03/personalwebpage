@@ -86,8 +86,28 @@ Notebooks use Clay metadata at the top of the file:
 - `deps.edn` - Clojure dependencies and aliases
 - `netlify.toml` - Netlify build config (Java 17, Node 18)
 
+## TikZ Diagrams
+
+TikZ diagrams are pre-rendered to PNG. Use the `tikz` namespace in notebooks:
+
+```clojure
+(require '[tikz :as tikz])
+
+(tikz/render
+  "\\begin{tikzpicture}
+    \\draw (0,0) -- (1,1);
+   \\end{tikzpicture}"
+  "diagram-name"
+  :caption "Optional caption"
+  :width "50%")
+```
+
+Requires: pdflatex (TeX Live/MacTeX), ImageMagick or pdftoppm
+
+Manual rendering: `./scripts/render-tikz.sh input.tikz output.png [dpi]`
+
 ## Dependencies
 
-Requires: Clojure CLI, Quarto, Node.js
+Requires: Clojure CLI, Quarto, Node.js, pdflatex (for TikZ)
 
 Key Clojure libraries: Clay v2, Tablecloth, Kindly, scicloj/noj (data science stack)

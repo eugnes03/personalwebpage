@@ -3,11 +3,6 @@
  :base-target-path ".clay-temp"
  :base-source-path "notebooks"
  :subirs-to-sync ["notebooks"]
- :quarto {:format {:html {:toc true
-                          :toc-depth 4
-                          :number-depth 1
-                          :theme [:cosmo "custom.scss"]}}
-          :fontsize "0.9em"}
 
  ;; aliases
  :markdown {:render           true
