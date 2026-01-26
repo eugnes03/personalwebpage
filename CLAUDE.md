@@ -13,6 +13,13 @@ Personal website and interactive blog platform using Clojure notebooks rendered 
 bash build.sh
 ```
 
+**Build and serve locally:**
+```bash
+bash build.sh --serve        # Build then serve on port 8000
+bash build.sh --serve-only   # Just serve (skip build)
+bash build.sh --serve --port=3000  # Custom port
+```
+
 **Individual steps for local development:**
 
 1. Download Clojure dependencies:

@@ -1,0 +1,17 @@
+{:remote-repo {:git-url "https://github.com/eugnes03/personalwebpage"
+               :branch "main"}
+ :base-target-path ".clay-temp"
+ :base-source-path "notebooks"
+ :subirs-to-sync ["notebooks"]
+ :quarto {:format {:html {:toc true
+                          :toc-depth 4
+                          :number-depth 1
+                          :theme [:cosmo "custom.scss"]}}
+          :fontsize "0.9em"}
+
+ ;; aliases
+ :markdown {:render           true
+            :quarto-target-path "site/notebooks/notebook"
+            :base-target-path "site/notebooks/notebook"
+            :format           [:quarto :html]
+            :run-quarto       false}}
