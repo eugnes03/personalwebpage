@@ -2,40 +2,41 @@
 
 const BLOG_POSTS_PATH = 'js/blog-posts.json';
 
+// Store all posts for filtering
+let allPosts = [];
+let activeCategory = null;
+
 async function loadAllPosts() {
     const container = document.getElementById('blog-posts');
     if (!container) return;
-    
+
     try {
         const response = await fetch(BLOG_POSTS_PATH);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const posts = await response.json();
-        
+        allPosts = posts; // Store for filtering
+
         if (posts.length === 0) {
             container.innerHTML = '<p class="no-posts">No blog posts yet. Check back soon!</p>';
             return;
         }
-        
-        
-        // Clear container
-        container.innerHTML = '';
-        
+
+        // Render category filters
+        renderCategoryFilters(posts);
+
         // Render all posts
-        posts.forEach(post => {
-            const card = createPostCard(post);
-            container.appendChild(card);
-        });
-        
+        renderPosts(posts);
+
         console.log(`Loaded ${posts.length} blog posts`);
-        
+
     } catch (error) {
         console.error('Error loading blog posts:', error);
         console.error('Attempted to fetch from:', BLOG_POSTS_PATH);
-        
+
         container.innerHTML = `
             <div class="error">
                 <p>Unable to load blog posts.</p>
@@ -44,6 +45,67 @@ async function loadAllPosts() {
                 </p>
             </div>
         `;
+    }
+}
+
+function renderPosts(posts) {
+    const container = document.getElementById('blog-posts');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (posts.length === 0) {
+        container.innerHTML = '<p class="no-posts">No posts in this category.</p>';
+        return;
+    }
+
+    posts.forEach(post => {
+        const card = createPostCard(post);
+        container.appendChild(card);
+    });
+}
+
+function renderCategoryFilters(posts) {
+    const container = document.getElementById('category-filters');
+    if (!container) return;
+
+    // Extract unique categories
+    const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
+
+    if (categories.length === 0) return;
+
+    // Create "All" button
+    let html = `<button class="category-btn active" data-category="">All</button>`;
+
+    // Create category buttons
+    categories.forEach(category => {
+        const count = posts.filter(p => p.category === category).length;
+        html += `<button class="category-btn" data-category="${category}">${category} (${count})</button>`;
+    });
+
+    container.innerHTML = html;
+
+    // Add click handlers
+    container.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            filterByCategory(category);
+
+            // Update active state
+            container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+}
+
+function filterByCategory(category) {
+    activeCategory = category || null;
+
+    if (!category) {
+        renderPosts(allPosts);
+    } else {
+        const filtered = allPosts.filter(post => post.category === category);
+        renderPosts(filtered);
     }
 }
 
