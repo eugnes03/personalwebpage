@@ -1,12 +1,13 @@
 // Load blog posts from generated JSON index
 
+const BLOG_POSTS_PATH = 'js/blog-posts.json';
 
 async function loadAllPosts() {
     const container = document.getElementById('blog-posts');
     if (!container) return;
     
     try {
-        const response = await fetch('js/blog-posts.json');
+        const response = await fetch(BLOG_POSTS_PATH);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -33,7 +34,7 @@ async function loadAllPosts() {
         
     } catch (error) {
         console.error('Error loading blog posts:', error);
-        console.error('Attempted to fetch from:', getBlogPostsPath());
+        console.error('Attempted to fetch from:', BLOG_POSTS_PATH);
         
         container.innerHTML = `
             <div class="error">
@@ -51,7 +52,7 @@ async function loadRecentPosts(limit = 3) {
     if (!container) return;
     
     try {
-        const response = await fetch(getBlogPostsPath());
+        const response = await fetch(BLOG_POSTS_PATH);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

@@ -88,14 +88,92 @@ footer {
     padding: 4rem 0;
 }
 
+.hero-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 4px #e9ecef, 0 4px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile-photo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 4px #e9ecef, 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .hero p {
     font-size: 1.2rem;
     color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 2px solid #e9ecef;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+
+/* LinkedIn */
+.social-link.linkedin:hover {
+    background: #0077b5;
+    color: #fff;
+    border-color: #0077b5;
+    box-shadow: 0 4px 12px rgba(0, 119, 181, 0.4);
+}
+
+/* GitHub */
+.social-link.github:hover {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Email */
+.social-link.email:hover {
+    background: #ea4335;
+    color: #fff;
+    border-color: #ea4335;
+    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
 }
 
 .quick-links {
