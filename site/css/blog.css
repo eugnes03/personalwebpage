@@ -15,20 +15,20 @@
 
 /* Post Card Styles */
 .post-card {
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--bg-card, white);
+    border: 1px solid var(--border-color, #e5e7eb);
     border-radius: 12px;
     padding: 1.75rem;
     transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px var(--shadow-sm, rgba(0, 0, 0, 0.1));
     display: flex;
     flex-direction: column;
 }
 
 .post-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 16px var(--shadow-md, rgba(0, 0, 0, 0.12));
     transform: translateY(-4px);
-    border-color: #2563eb;
+    border-color: var(--accent-color, #2563eb);
 }
 
 .post-header {
@@ -47,32 +47,33 @@
 }
 
 .post-card h3 a {
-    color: #1a202c;
+    color: var(--text-primary, #1a202c);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .post-card h3 a:hover {
-    color: #2563eb;
+    color: var(--accent-color, #2563eb);
 }
 
 /* Category Badge */
 .category-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: var(--accent-color, #dbeafe);
+    color: #fff;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     white-space: nowrap;
+    opacity: 0.9;
 }
 
 /* Post Meta */
 .post-meta {
-    color: #6b7280;
+    color: var(--text-muted, #6b7280);
     font-size: 0.875rem;
     margin: 0.75rem 0;
     display: flex;
@@ -86,18 +87,18 @@
 }
 
 .post-meta .author {
-    color: #4b5563;
+    color: var(--text-secondary, #4b5563);
 }
 
 .post-meta .author::before {
     content: "•";
     margin-right: 0.5rem;
-    color: #d1d5db;
+    color: var(--border-color, #d1d5db);
 }
 
 /* Post Excerpt */
 .post-excerpt {
-    color: #4b5563;
+    color: var(--text-secondary, #4b5563);
     line-height: 1.6;
     margin: 1rem 0;
     flex: 1;
@@ -114,8 +115,8 @@
 .tag {
     display: inline-block;
     padding: 0.25rem 0.625rem;
-    background-color: #f3f4f6;
-    color: #4b5563;
+    background-color: var(--bg-secondary, #f3f4f6);
+    color: var(--text-secondary, #4b5563);
     border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 500;
@@ -123,13 +124,13 @@
 }
 
 .tag:hover {
-    background-color: #e5e7eb;
-    color: #1f2937;
+    background-color: var(--border-light, #e5e7eb);
+    color: var(--text-primary, #1f2937);
 }
 
 /* Read More Link */
 .read-more {
-    color: #2563eb;
+    color: var(--accent-color, #2563eb);
     text-decoration: none;
     font-weight: 600;
     display: inline-flex;
@@ -142,7 +143,7 @@
 
 .read-more:hover {
     gap: 0.5rem;
-    color: #1d4ed8;
+    color: var(--accent-hover, #1d4ed8);
 }
 
 /* Empty States */
@@ -150,7 +151,7 @@
 .error {
     text-align: center;
     padding: 3rem 1rem;
-    color: #6b7280;
+    color: var(--text-muted, #6b7280);
     font-style: italic;
     grid-column: 1 / -1;
 }
@@ -160,6 +161,11 @@
     background-color: #fef2f2;
     border: 1px solid #fecaca;
     border-radius: 8px;
+}
+
+[data-theme="dark"] .error {
+    background-color: #451a1a;
+    border-color: #7f1d1d;
 }
 
 /* Category Filters */
@@ -175,10 +181,10 @@
 
 .category-btn {
     padding: 0.5rem 1rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color, #e5e7eb);
     border-radius: 20px;
-    background: #fff;
-    color: #4b5563;
+    background: var(--bg-card, #fff);
+    color: var(--text-secondary, #4b5563);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -186,13 +192,13 @@
 }
 
 .category-btn:hover {
-    border-color: #2563eb;
-    color: #2563eb;
+    border-color: var(--accent-color, #2563eb);
+    color: var(--accent-color, #2563eb);
 }
 
 .category-btn.active {
-    background: #2563eb;
-    border-color: #2563eb;
+    background: var(--accent-color, #2563eb);
+    border-color: var(--accent-color, #2563eb);
     color: #fff;
 }
 
@@ -200,18 +206,18 @@
 .page-header {
     margin-bottom: 2.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid var(--border-color, #e5e7eb);
 }
 
 .page-header h1 {
     margin: 0 0 0.5rem 0;
-    color: #1a202c;
+    color: var(--text-primary, #1a202c);
     font-size: 2.5rem;
 }
 
 .page-header p {
     margin: 0;
-    color: #6b7280;
+    color: var(--text-muted, #6b7280);
     font-size: 1.125rem;
 }
 
