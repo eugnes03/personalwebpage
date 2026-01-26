@@ -5,6 +5,9 @@ const path = require('path');
 const NOTEBOOKS_DIR = 'site/notebooks';
 const OUTPUT_FILE = 'site/js/blog-posts.json';
 
+// Files to exclude from blog index (utility modules, not posts)
+const EXCLUDED_FILES = ['tikz.html'];
+
 function extractMetadata(htmlContent, filename) {
     // Extract title from Quarto YAML or <title> tag or <h1>
     const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/) || 
@@ -65,7 +68,8 @@ function generateBlogIndex() {
     
     const files = fs.readdirSync(NOTEBOOKS_DIR)
         .filter(f => f.endsWith('.html'))
-        .filter(f => !f.startsWith('_')); // Ignore Quarto internal files
+        .filter(f => !f.startsWith('_')) // Ignore Quarto internal files
+        .filter(f => !EXCLUDED_FILES.includes(f)); // Ignore utility modules
     
     console.log(`Found ${files.length} HTML file(s)`);
     

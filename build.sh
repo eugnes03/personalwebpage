@@ -90,12 +90,17 @@ echo "→ Running Quarto render (site -> HTML)..."
 quarto render site/notebooks
 echo "✓ Quarto render complete"
 
-# Move rendered notebooks to clean URL location
+# Copy full Quarto output to serve location
 echo ""
-echo "→ Moving notebooks to clean URL location..."
-if [ -d "site/notebooks/_site/notebook" ]; then
+echo "→ Setting up notebook output..."
+if [ -d "site/notebooks/_site" ]; then
+    # Copy site_libs to site/ (HTML uses ../site_libs/ relative path)
+    cp -r site/notebooks/_site/site_libs site/ 2>/dev/null || true
+    # Copy notebook HTML files to site/notebooks/
     cp site/notebooks/_site/notebook/*.html site/notebooks/ 2>/dev/null || true
-    echo "✓ Notebooks moved to site/notebooks/"
+    # Remove utility files (not blog posts)
+    rm -f site/notebooks/tikz.html 2>/dev/null || true
+    echo "✓ Notebooks ready at site/notebooks/"
 else
     echo "⚠ Warning: No rendered notebooks found"
 fi

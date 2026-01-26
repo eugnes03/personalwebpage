@@ -1,15 +1,5 @@
 [
   {
-    "title": "tikz – Eugen Nesbakken",
-    "date": "2026-01-26",
-    "url": "notebooks/tikz.html",
-    "excerpt": "Convenience macros for common diagram types...",
-    "author": "Eugen Nesbakken",
-    "category": "general",
-    "tags": [],
-    "filename": "tikz.html"
-  },
-  {
     "title": "Example – Eugen Nesbakken",
     "date": "2025-10-02",
     "url": "notebooks/example.html",
