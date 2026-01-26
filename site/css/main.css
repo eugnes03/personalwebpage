@@ -37,6 +37,25 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.logo img.nav-profile-photo {
+    width: 32px !important;
+    height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    display: block;
+}
+
+.logo img.nav-profile-photo:hover {
+    opacity: 0.8;
 }
 
 .nav-links {
@@ -86,6 +105,17 @@ footer {
 .hero {
     text-align: center;
     padding: 4rem 0;
+}
+
+.world-map-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.world-map-container canvas {
+    max-width: 100%;
+    height: auto;
 }
 
 .hero-profile {
@@ -335,4 +365,92 @@ footer {
 
 .about-content p {
     margin-bottom: 1rem;
+}
+
+/* Location Map Styles */
+.location-map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.map-regions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.map-region {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-region.usa {
+    width: 120px;
+}
+
+.map-region.norway {
+    width: 50px;
+}
+
+.region-outline {
+    width: 100%;
+    height: auto;
+}
+
+.location-marker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+}
+
+.marker-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.marker-pulse {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+.region-label {
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.connection-line {
+    width: 40px;
+    height: 20px;
+    opacity: 0.6;
 }

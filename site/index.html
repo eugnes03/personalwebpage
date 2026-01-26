@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eugen Nesbakken - Home</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/blog.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Eugen Nesbakken</a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="nav-profile-photo">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="blog.html">Blog</a></li>
@@ -23,7 +26,7 @@
     <main class="container">
         <section class="hero">
             <div class="hero-profile">
-                <img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="profile-photo">
+                <div id="world-map" class="world-map-container"></div>
                 <h1>Eugen Nesbakken</h1>
                 <p>I post my thoughts and findings!</p>
                 <div class="social-links">
@@ -77,6 +80,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/blog.js"></script>
+    <script src="js/world-map.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadRecentPosts(3);
