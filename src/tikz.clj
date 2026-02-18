@@ -1,20 +1,3 @@
----
-format:
-  html: {toc: true, toc-depth: 4, theme: cosmo}
-
----
-<style></style><style>.printedClojure .sourceCode {
-  background-color: transparent;
-  border-style: none;
-}
-</style><style>.clay-limit-image-width .clay-image {max-width: 100%}
-.clay-side-by-side .sourceCode {margin: 0}
-.clay-side-by-side {margin: 1em 0}
-</style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script><script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" type="text/javascript"></script>
-
-::: {.sourceClojure}
-```clojure
 (ns tikz
   "TikZ diagram rendering utilities for Clay notebooks.
 
@@ -30,41 +13,14 @@ format:
   (:import [java.io File]
            [java.nio.file Files]
            [java.nio.file.attribute FileAttribute]))
-```
-:::
 
-
-
-::: {.sourceClojure}
-```clojure
 (def ^:private output-dir "site/notebooks/images/tikz")
-```
-:::
 
-
-
-::: {.sourceClojure}
-```clojure
 (defn- ensure-output-dir []
   (let [dir (io/file output-dir)]
     (when-not (.exists dir)
       (.mkdirs dir))))
-```
-:::
 
-
-
-::: {.printedClojure}
-```clojure
-#'tikz/ensure-output-dir
-
-```
-:::
-
-
-
-::: {.sourceClojure}
-```clojure
 (defn- create-latex-doc [tikz-code]
   (str "\\documentclass[tikz,border=10pt]{standalone}\n"
        "\\usepackage{amsmath}\n"
@@ -77,22 +33,7 @@ format:
        "\\begin{document}\n"
        tikz-code "\n"
        "\\end{document}\n"))
-```
-:::
 
-
-
-::: {.printedClojure}
-```clojure
-#'tikz/create-latex-doc
-
-```
-:::
-
-
-
-::: {.sourceClojure}
-```clojure
 (defn render
   "Render TikZ code to PNG and return a Kindly image element.
 
@@ -165,28 +106,16 @@ format:
            img-elem
            [:figcaption caption]]
           img-elem)))))
-```
-:::
 
-
-
-::: {.sourceClojure}
-```clojure
 (defn render-raw
   "Like render, but takes raw TikZ code without \\begin{tikzpicture}.
    Automatically wraps the code in a tikzpicture environment."
   [tikz-code name & opts]
   (let [wrapped (str "\\begin{tikzpicture}\n" tikz-code "\n\\end{tikzpicture}")]
     (apply render wrapped name opts)))
-```
-:::
 
+;; Convenience macros for common diagram types
 
-Convenience macros for common diagram types
-
-
-::: {.sourceClojure}
-```clojure
 (defn node-diagram
   "Create a simple node-based diagram.
 
@@ -205,17 +134,3 @@ Convenience macros for common diagram types
                        (clojure.string/join "\n" edge-strs) "\n"
                        "\\end{tikzpicture}")]
     (apply render tikz-code name (mapcat identity opts))))
-```
-:::
-
-
-
-```{=html}
-<div style="background-color:grey;height:2px;width:100%;"></div>
-```
-
-
-
-```{=html}
-<div><pre><small><small>source: <a href="https://github.com/eugnes03/personalwebpage/blob/main/notebooks/tikz.clj">notebooks/tikz.clj</a></small></small></pre></div>
-```

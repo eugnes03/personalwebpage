@@ -59,12 +59,73 @@ notebooks/*.clj  →  Clay  →  site/notebooks/notebook/*.qmd  →  Quarto  →
                                                               site/js/blog-posts.json
 ```
 
+Post-build steps in `build.sh`:
+1. Copy `site/notebooks/_site/site_libs` → `site/site_libs`
+2. Copy `site/notebooks/_site/notebook/*.html` → `site/notebooks/`
+3. Remove utility-only files (`tikz.html`, `math.html`, `text.html`)
+4. Generate blog index JSON
+
+### Directory Structure
+
+```
+├── notebooks/                 # Source Clojure notebooks (blog posts only)
+│   ├── example.clj
+│   ├── example2.clj
+│   ├── latex-demo.clj
+│   ├── rep-theory-category-theory.clj
+│   └── week1.clj
+│
+├── src/                       # Helper namespaces (not rendered by Clay)
+│   ├── math.clj               # Theorem/proof environments
+│   ├── tikz.clj               # TikZ diagram rendering
+│   └── text.clj               # Titles, quotes, citations, downloads
+│
+├── scripts/
+│   └── render-tikz.sh         # TikZ → PNG shell script
+│
+├── site/                      # Published static site (Netlify publish dir)
+│   ├── index.html             # Home page
+│   ├── blog.html              # Blog listing page
+│   ├── about.html
+│   ├── cv.html
+│   ├── portfolio.html
+│   │
+│   ├── css/
+│   │   ├── main.css           # Main styles (light/dark theme CSS vars)
+│   │   └── blog.css           # Blog card & filter styles
+│   │
+│   ├── js/
+│   │   ├── theme.js           # Dark/light mode toggle
+│   │   ├── main.js            # General page logic
+│   │   ├── blog.js            # Blog post loading & category filtering
+│   │   └── blog-posts.json    # Auto-generated blog index (DO NOT EDIT)
+│   │
+│   ├── assets/
+│   │   ├── images/            # Static images (portrait, etc.)
+│   │   ├── pdfs/              # Downloadable PDFs (cv.pdf, etc.)
+│   │   └── data/              # Downloadable data files
+│   │
+│   ├── notebooks/
+│   │   ├── _quarto.yml        # Quarto config for notebook rendering
+│   │   ├── custom.scss        # Quarto custom theme overrides
+│   │   ├── notebook/          # Intermediate .qmd files (Clay output)
+│   │   ├── _site/             # Quarto HTML output (git-ignored)
+│   │   ├── images/tikz/       # Pre-rendered TikZ diagram PNGs
+│   │   └── *.html             # Final rendered notebook pages
+│   │
+│   └── site_libs/             # Quarto framework assets (git-ignored)
+```
+
 ### Key Paths
 
-- `notebooks/` - Source Clojure notebook files
-- `site/` - Static website (publish directory)
-- `site/notebooks/_site/notebook/` - Rendered notebook HTML output
+- `notebooks/` - Source Clojure notebook files (on classpath via deps.edn `:paths`)
+- `site/` - Static website root (Netlify publish directory)
+- `site/notebooks/notebook/*.qmd` - Intermediate Quarto markdown (Clay output)
+- `site/notebooks/_site/notebook/*.html` - Quarto HTML output (copied up post-build)
+- `site/notebooks/*.html` - Final rendered notebook HTML pages
 - `site/js/blog-posts.json` - Auto-generated blog post index
+- `site/assets/pdfs/` - Downloadable PDF files
+- `site/notebooks/images/tikz/` - Pre-rendered TikZ diagram PNGs
 
 ### Notebook Metadata Format
 
@@ -80,34 +141,45 @@ Notebooks use Clay metadata at the top of the file:
                   :tags        [:tag1 :tag2]}}}
 ```
 
-### Configuration Files
+### Utility Namespaces
 
-- `clay.edn` - Clay notebook rendering config (output paths, Quarto theme)
-- `deps.edn` - Clojure dependencies and aliases
-- `netlify.toml` - Netlify build config (Java 17, Node 18)
+All three live in `src/` so Clay never renders them. They are on the classpath via `deps.edn` `:paths ["src"]`.
 
-## TikZ Diagrams
+- **`math`** (`math.clj`) — Quarto theorem environments: `definition`, `theorem`, `lemma`, `corollary`, `proposition`, `conjecture`, `example`, `exercise`, `proof`, `remark`. Emits fenced divs via `kind/md` with auto-numbering and cross-references (`@def-label`, `@thm-label`, etc.).
+- **`tikz`** (`tikz.clj`) — TikZ diagram rendering. Compiles LaTeX to PNG via pdflatex + ImageMagick/pdftoppm. Returns `kind/hiccup` images. Caches output in `site/notebooks/images/tikz/`. Functions: `render`, `render-raw`, `node-diagram`.
+- **`text`** (`text.clj`) — Text rendering helpers. Functions:
+  - `text/title` — markdown headings at any level
+  - `text/blockquote` — blockquotes with optional `:cite` attribution
+  - `text/cite` — formatted citations with `:year`, `:url`, `:journal`, `:volume`, `:pages`, `:publisher`, `:doi`
+  - `text/bibliography` — numbered reference list from a seq of strings
+  - `text/download` — styled download link for PDFs/files
 
-TikZ diagrams are pre-rendered to PNG. Use the `tikz` namespace in notebooks:
-
+Usage in any notebook:
 ```clojure
-(require '[tikz :as tikz])
-
-(tikz/render
-  "\\begin{tikzpicture}
-    \\draw (0,0) -- (1,1);
-   \\end{tikzpicture}"
-  "diagram-name"
-  :caption "Optional caption"
-  :width "50%")
+(ns my-post
+  (:require [math :as math]
+            [tikz :as tikz]
+            [text :as text]))
 ```
 
-Requires: pdflatex (TeX Live/MacTeX), ImageMagick or pdftoppm
+### Including Downloadable PDFs
 
-Manual rendering: `./scripts/render-tikz.sh input.tikz output.png [dpi]`
+1. Place the PDF in `site/assets/pdfs/`
+2. In a notebook, use `text/download` with relative path from rendered HTML (`site/notebooks/<name>.html`):
+   ```clojure
+   (text/download "../../assets/pdfs/my-doc.pdf" "Download PDF")
+   ```
+   The `../../` is needed because rendered HTML is two directories below `site/`.
+
+### Configuration Files
+
+- `clay.edn` - Clay notebook rendering config (source path: `notebooks/`, target: `.clay-temp/`, output to `site/notebooks/notebook/`)
+- `deps.edn` - Clojure dependencies and aliases (`:paths` includes `notebooks/` and `site/`)
+- `netlify.toml` - Netlify build config (Java 17, Node 18, publish dir: `site/`)
+- `site/notebooks/_quarto.yml` - Quarto rendering config (theme, MathJax macros, navbar)
 
 ## Dependencies
 
 Requires: Clojure CLI, Quarto, Node.js, pdflatex (for TikZ)
 
-Key Clojure libraries: Clay v2, Tablecloth, Kindly, scicloj/noj (data science stack)
+Key Clojure libraries: Clay v2, Tablecloth, Kindly, scicloj/noj (data science stack), next.jdbc + PostgreSQL (database), clj-http (HTTP), jsonista (JSON), nippy (serialisation), jdsp (signal processing), commons-math3 (numerics), eclipse.elk (graph layout)

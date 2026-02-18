@@ -36,14 +36,12 @@ function extractMetadata(htmlContent, filename) {
                        htmlContent.match(/<meta name="dcterms\.creator" content="(.*?)"/);
     const author = authorMatch ? authorMatch[1] : 'Eugen Nesbakken';
     
-    // Extract category
-    const categoryMatch = htmlContent.match(/<meta name="category" content="(.*?)"/) ||
-                         htmlContent.match(/<meta property="article:section" content="(.*?)"/);
-    const category = categoryMatch ? categoryMatch[1] : 'general';
-    
-    // Extract tags
-    const tagsMatch = htmlContent.match(/<meta name="keywords" content="(.*?)"/) ||
-                     htmlContent.match(/<meta property="article:tag" content="(.*?)"/);
+    // Extract category from Quarto-rendered YAML code block
+    const categoryMatch = htmlContent.match(/<span class="an">category:<\/span><span class="co"> ([^<]+)<\/span>/);
+    const category = categoryMatch ? categoryMatch[1].trim() : 'general';
+
+    // Extract tags from Quarto-rendered YAML code block
+    const tagsMatch = htmlContent.match(/<span class="an">tags:<\/span><span class="co"> \[([^\]]+)\]<\/span>/);
     const tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()) : [];
     
     return { title, date, excerpt, author, category, tags };

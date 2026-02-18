@@ -98,8 +98,7 @@ if [ -d "site/notebooks/_site" ]; then
     cp -r site/notebooks/_site/site_libs site/ 2>/dev/null || true
     # Copy notebook HTML files to site/notebooks/
     cp site/notebooks/_site/notebook/*.html site/notebooks/ 2>/dev/null || true
-    # Remove utility files (not blog posts)
-    rm -f site/notebooks/tikz.html 2>/dev/null || true
+    # No utility files to remove (all helpers live in src/)
     echo "✓ Notebooks ready at site/notebooks/"
 else
     echo "⚠ Warning: No rendered notebooks found"

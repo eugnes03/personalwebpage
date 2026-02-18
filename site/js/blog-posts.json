@@ -1,12 +1,42 @@
 [
   {
+    "title": "Week 1: Random Walks on the General Linear Group of Fp – Eugen Nesbakken",
+    "date": "2026-02-17",
+    "url": "notebooks/week1.html",
+    "excerpt": "Research Project",
+    "author": "Eugen",
+    "category": "mathematics",
+    "tags": [
+      "algebra",
+      "probability",
+      "representation-theory"
+    ],
+    "filename": "week1.html"
+  },
+  {
+    "title": "A Categorical View of Representation Theory – Eugen Nesbakken",
+    "date": "2026-02-07",
+    "url": "notebooks/rep_theory_category_theory.html",
+    "excerpt": "Category Theory in Representation Theory",
+    "author": "Eugen",
+    "category": "mathematics",
+    "tags": [
+      "algebra",
+      "category-theory",
+      "representation-theory"
+    ],
+    "filename": "rep_theory_category_theory.html"
+  },
+  {
     "title": "Example – Eugen Nesbakken",
     "date": "2025-10-02",
     "url": "notebooks/example.html",
     "excerpt": "Example notebook",
     "author": "Eugen",
     "category": "general",
-    "tags": [],
+    "tags": [
+      "example"
+    ],
     "filename": "example.html"
   },
   {
@@ -16,7 +46,9 @@
     "excerpt": "Example notebook 2",
     "author": "Eugen",
     "category": "general",
-    "tags": [],
+    "tags": [
+      "example"
+    ],
     "filename": "example2.html"
   },
   {
@@ -25,8 +57,12 @@
     "url": "notebooks/latex_demo.html",
     "excerpt": "Demonstrating advanced LaTeX features",
     "author": "Eugen Nesbakken",
-    "category": "general",
-    "tags": [],
+    "category": "math",
+    "tags": [
+      "latex",
+      "math",
+      "demo"
+    ],
     "filename": "latex_demo.html"
   }
 ]

@@ -1,4 +1,4 @@
-{:paths ["site" "notebooks"]
+{:paths ["site" "notebooks" "src"]
  :deps  {org.clojure/clojure                        {:mvn/version "1.12.0"}
 
          ;; databases
@@ -19,7 +19,24 @@
          org.scicloj/noj                {:mvn/version "2-beta19.1"} ; <--- includes a lot
          techascent/tech.ml.dataset.sql {:mvn/version "7.029"}
          com.github.psambit9791/jdsp {:mvn/version "3.1.0"}
+
+         ;; math
+         ;; complex numbers, matrices, eigendecomposition, numerical methods
          org.apache.commons/commons-math3 {:mvn/version "3.6.1"}
+         ;; exact arithmetic: gcd, lcm, expt, integer?, etc.
+         org.clojure/math.numeric-tower  {:mvn/version "0.0.5"}
+         ;; combinatorics: permutations, combinations, partitions, subsets
+         org.clojure/math.combinatorics  {:mvn/version "0.1.6"}
+
+         ;; linear algebra
+         ;; idiomatic matrix/vector API (add, mul, transpose, inverse, solve, etc.)
+         net.mikera/core.matrix          {:mvn/version "0.63.0"}
+         ;; fast JVM backend for core.matrix (vectorised operations)
+         net.mikera/vectorz-clj          {:mvn/version "0.48.0"}
+
+         ;; statistics
+         ;; distributions, moments, correlation, regression, hypothesis tests
+         kixi/stats                      {:mvn/version "0.5.4"}
 
          ;; graph layouts
          org.eclipse.elk/org.eclipse.elk.core {:mvn/version "0.11.0"}
