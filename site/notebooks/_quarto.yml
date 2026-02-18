@@ -5,8 +5,6 @@ website:
   title: "Eugen Nesbakken"
   navbar:
     background: light
-    logo: "https://eugnes03.github.io/personalwebpage/assets/images/portrait.jpeg"
-    logo-href: "https://eugnes03.github.io/personalwebpage/index.html"
     right:
       - text: "Home"
         href: "https://eugnes03.github.io/personalwebpage/index.html"
@@ -34,6 +32,18 @@ format:
     code-tools: true
     fontsize: 1.1em
     mainfont: "Times New Roman"
+
+    include-after-body:
+      - text: |
+          <script>
+          (function(){
+            var brand = document.querySelector('.navbar-brand');
+            if(brand){
+              brand.innerHTML = '<img src="https://eugnes03.github.io/personalwebpage/assets/images/portrait.jpeg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">';
+              brand.href = 'https://eugnes03.github.io/personalwebpage/index.html';
+            }
+          })();
+          </script>
 
     # MathJax configuration for advanced LaTeX
     html-math-method:

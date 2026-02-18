@@ -9,11 +9,17 @@ const OUTPUT_FILE = 'site/js/blog-posts.json';
 const EXCLUDED_FILES = ['tikz.html'];
 
 function extractMetadata(htmlContent, filename) {
-    // Extract title from Quarto YAML or <title> tag or <h1>
-    const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/) || 
-                      htmlContent.match(/<h1[^>]*class="title"[^>]*>(.*?)<\/h1>/) ||
-                      htmlContent.match(/<h1[^>]*>(.*?)<\/h1>/);
-    const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '').replace(/\s*[–—]\s*Eugen Nesbakken\s*$/, '').trim() : filename.replace('.html', '');
+    // Try <h1 class="title"> first (clean post title, no site name).
+    // Fall back to <title> tag with site-name stripping for both Quarto formats:
+    //   Quarto 1.4: "Site Name - Post Title"  (prefix, regular hyphen)
+    //   Quarto 1.8: "Post Title – Site Name"  (suffix, em-dash)
+    const titleMatch = htmlContent.match(/<h1[^>]*class="[^"]*title[^"]*"[^>]*>(.*?)<\/h1>/) ||
+                       htmlContent.match(/<title>(.*?)<\/title>/);
+    const rawTitle = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '').trim() : filename.replace('.html', '');
+    const title = rawTitle
+        .replace(/^Eugen Nesbakken\s*[-–—]\s*/, '')
+        .replace(/\s*[-–—]\s*Eugen Nesbakken\s*$/, '')
+        .trim();
     
     // Extract date from Quarto meta or filename
     const metaDateMatch = htmlContent.match(/<meta name="dcterms\.date" content="(.*?)"/) ||
