@@ -5,20 +5,19 @@ website:
   title: "Eugen Nesbakken"
   navbar:
     background: light
-    left:
-      - text: "Eugen Nesbakken"
-        href: ../index.html
+    logo: /personalwebpage/assets/images/portrait.jpeg
+    logo-href: /personalwebpage/index.html
     right:
       - text: "Home"
-        href: ../index.html
+        href: /personalwebpage/index.html
       - text: "Blog"
-        href: ../blog.html
+        href: /personalwebpage/blog.html
       - text: "Portfolio"
-        href: ../portfolio.html
+        href: /personalwebpage/portfolio.html
       - text: "CV"
-        href: ../cv.html
+        href: /personalwebpage/cv.html
       - text: "About"
-        href: ../about.html
+        href: /personalwebpage/about.html
   page-footer:
     center: "© 2026 Eugen Nesbakken. All rights reserved."
 

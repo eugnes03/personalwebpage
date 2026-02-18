@@ -27,11 +27,11 @@ $max-width: 1000px;
   z-index: 1000 !important;
 }
 
-.navbar-brand {
-  font-size: 1.5rem !important;
-  font-weight: bold !important;
-  color: #333 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+.navbar-brand img {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
 }
 
 .navbar-nav .nav-link {

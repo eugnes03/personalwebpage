@@ -13,7 +13,7 @@ function extractMetadata(htmlContent, filename) {
     const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/) || 
                       htmlContent.match(/<h1[^>]*class="title"[^>]*>(.*?)<\/h1>/) ||
                       htmlContent.match(/<h1[^>]*>(.*?)<\/h1>/);
-    const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '').trim() : filename.replace('.html', '');
+    const title = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '').replace(/\s*[–—]\s*Eugen Nesbakken\s*$/, '').trim() : filename.replace('.html', '');
     
     // Extract date from Quarto meta or filename
     const metaDateMatch = htmlContent.match(/<meta name="dcterms\.date" content="(.*?)"/) ||
