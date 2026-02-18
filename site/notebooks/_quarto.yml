@@ -5,19 +5,19 @@ website:
   title: "Eugen Nesbakken"
   navbar:
     background: light
-    logo: /personalwebpage/assets/images/portrait.jpeg
-    logo-href: /personalwebpage/index.html
+    logo: "https://eugnes03.github.io/personalwebpage/assets/images/portrait.jpeg"
+    logo-href: "https://eugnes03.github.io/personalwebpage/index.html"
     right:
       - text: "Home"
-        href: /personalwebpage/index.html
+        href: "https://eugnes03.github.io/personalwebpage/index.html"
       - text: "Blog"
-        href: /personalwebpage/blog.html
+        href: "https://eugnes03.github.io/personalwebpage/blog.html"
       - text: "Portfolio"
-        href: /personalwebpage/portfolio.html
+        href: "https://eugnes03.github.io/personalwebpage/portfolio.html"
       - text: "CV"
-        href: /personalwebpage/cv.html
+        href: "https://eugnes03.github.io/personalwebpage/cv.html"
       - text: "About"
-        href: /personalwebpage/about.html
+        href: "https://eugnes03.github.io/personalwebpage/about.html"
   page-footer:
     center: "© 2026 Eugen Nesbakken. All rights reserved."
 

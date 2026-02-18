@@ -177,7 +177,6 @@ function createPostCard(post) {
         </div>
         <p class="post-meta">
             <time datetime="${post.date}">${formattedDate}</time>
-            ${post.author ? `<span class="author">by ${post.author}</span>` : ''}
         </p>
         <p class="post-excerpt">${post.excerpt}</p>
         ${tagsHtml}
