@@ -16,9 +16,10 @@
     { lon: -71.06, lat: 42.36, label: 'Boston',  side: -1 },
   ];
 
-  // ── Equirectangular projection ──────────────────────────────────────────────
+  // ── Cropped equirectangular projection (lat −58 → 82) ──────────────────────
+  const LAT_MAX = 82, LAT_MIN = -58, LAT_SPAN = LAT_MAX - LAT_MIN;
   function proj(lon, lat, w, h) {
-    return [(lon + 180) / 360 * w, (90 - lat) / 180 * h];
+    return [(lon + 180) / 360 * w, (LAT_MAX - lat) / LAT_SPAN * h];
   }
 
   // ── Minimal TopoJSON → rings decoder ───────────────────────────────────────
@@ -99,7 +100,7 @@
   function sizeCanvas() {
     const container = canvas.parentElement;
     W = Math.min(container ? container.clientWidth : 900, 1000);
-    H = Math.round(W * 0.46);
+    H = Math.round(W * (LAT_SPAN / 360) * 0.95); // ~37% of width
     canvas.width  = W;
     canvas.height = H;
     landPx = landLL.map(([lo, la]) => proj(lo, la, W, H));
@@ -196,7 +197,7 @@
     .then(topo => {
       const rings  = decodeRings(topo);
       const pixels = buildMask(rings);
-      landLL = sampleDots(pixels);
+      landLL = sampleDots(pixels).filter(([, lat]) => lat >= LAT_MIN && lat <= LAT_MAX);
       sizeCanvas();
 
       let rt;
