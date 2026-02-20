@@ -148,14 +148,15 @@ footer {
 }
 
 .world-map-container {
-    margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
+    margin-bottom: 2rem;
+    width: 100%;
 }
 
-.world-map-container canvas {
-    max-width: 100%;
-    height: auto;
+#world-map-canvas {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    opacity: 0.9;
 }
 
 .hero-profile {
