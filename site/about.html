@@ -30,19 +30,100 @@
     </nav>
 
     <main class="container">
-        <header class="page-header">
-            <h1>About Me</h1>
-        </header>
-        <section class="about-content">
-            <img src="assets/images/portrait.jpeg"> 
-            <p>I am Eugen, a masters student from Norway attending Boston University.</p>
-            <p>I study Mathematics, with aspirations of eventually becoming a PhD candidate. This website is my attempt to keep up with mathematical research, my classes, my extracurriculars, and to remind myself that iterative learning is the best way for me to learn.</p>
-            <p>My current interests within Mathematics is in algebra and probability, where I am currently learning about Representation Theory, Probability Theory and Neural Networks.
-                My goal over the next few months is to reconcile these areas of maths into a research project. 
-            </p>
-            <p>In addition to studies, I am an avid tennis and chess player. I feel it is just as important to stay active as it is to learn (often times they go hand in hand). Feel free to contact me about anything! Questions, concerns, comments!</p>
-            <p>The notebooks on this website are written in Clojure and rendered using Clay and Quarto, inspired by the Clojure Civitas community.</p>
+
+        <!-- Hero / intro -->
+        <section class="about-hero">
+            <img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="about-portrait">
+            <h1>Eugen Nesbakken</h1>
+            <p class="about-tagline">Masters student in Mathematics &middot; Boston University</p>
         </section>
+
+        <div class="about-body">
+
+            <!-- Who I am -->
+            <section class="about-section">
+                <h2 class="about-section-title">
+                    <span class="about-section-icon">&#128075;</span> Who I Am
+                </h2>
+                <p>
+                    I'm Eugen, a graduate student from Norway currently pursuing a Master's degree in Mathematics at Boston University. My goal is to eventually become a PhD candidate and contribute to mathematical research.
+                </p>
+                <p>
+                    This website is my attempt to stay accountable — keeping up with coursework, research ideas, and extracurriculars, while reminding myself that iterative, hands-on learning is the approach that works best for me.
+                </p>
+            </section>
+
+            <!-- Research interests -->
+            <section class="about-section">
+                <h2 class="about-section-title">
+                    <span class="about-section-icon">&#128300;</span> Research Interests
+                </h2>
+                <p>
+                    My current mathematical interests lie at the intersection of <strong>algebra</strong> and <strong>probability</strong>. I am actively learning about:
+                </p>
+                <ul class="about-list">
+                    <li><strong>Representation Theory</strong> — the study of how algebraic structures act on vector spaces</li>
+                    <li><strong>Probability Theory</strong> — foundations and modern techniques</li>
+                    <li><strong>Neural Networks</strong> — the mathematical underpinnings of deep learning</li>
+                </ul>
+                <p>
+                    My medium-term goal is to weave these threads together into a cohesive research project, exploring how representation-theoretic tools can shed light on probabilistic models and learning algorithms.
+                </p>
+            </section>
+
+            <!-- Beyond academia -->
+            <section class="about-section">
+                <h2 class="about-section-title">
+                    <span class="about-section-icon">&#127934;</span> Beyond Academia
+                </h2>
+                <p>
+                    Outside of mathematics I am an avid <strong>tennis</strong> and <strong>chess</strong> player. I believe staying physically and mentally active outside of study is just as important as the study itself — and the two often reinforce each other in surprising ways.
+                </p>
+                <div class="about-interest-grid">
+                    <div class="about-interest-card">
+                        <span class="interest-icon">&#127934;</span>
+                        <span>Tennis</span>
+                    </div>
+                    <div class="about-interest-card">
+                        <span class="interest-icon">&#9822;</span>
+                        <span>Chess</span>
+                    </div>
+                    <div class="about-interest-card">
+                        <span class="interest-icon">&#128218;</span>
+                        <span>Mathematics</span>
+                    </div>
+                    <div class="about-interest-card">
+                        <span class="interest-icon">&#128187;</span>
+                        <span>Programming</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About this site -->
+            <section class="about-section">
+                <h2 class="about-section-title">
+                    <span class="about-section-icon">&#128196;</span> About This Site
+                </h2>
+                <p>
+                    The notebooks on this website are written in <strong>Clojure</strong> and rendered using <a href="https://github.com/scicloj/clay" target="_blank" rel="noopener">Clay</a> and <a href="https://quarto.org" target="_blank" rel="noopener">Quarto</a>, inspired by the <a href="https://clojurians.zulipchat.com/#narrow/channel/321125-clojure-data-cookbook" target="_blank" rel="noopener">Clojure Civitas</a> community.
+                </p>
+                <p>
+                    I find Clojure's interactive, REPL-driven workflow ideal for mathematical exploration — it keeps the feedback loop tight and the code close to the mathematics.
+                </p>
+            </section>
+
+            <!-- Contact -->
+            <section class="about-section about-section-last">
+                <h2 class="about-section-title">
+                    <span class="about-section-icon">&#9993;</span> Get in Touch
+                </h2>
+                <p>
+                    Questions, comments, collaboration ideas — feel free to reach out. I'm always happy to talk mathematics, programming, or anything in between.
+                </p>
+                <a href="mailto:eugnes@bu.edu" class="btn btn-primary about-contact-btn">Send me an email</a>
+            </section>
+
+        </div>
     </main>
 
     <footer>

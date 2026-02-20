@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Proposal for PPI Testing for Camera PPG Values",
+    "description": "",
+    "category": "Mathematics",
+    "date": "2025-10",
+    "filename": "PPI_Testing.pdf",
+    "url": "assets/pdfs/portfolio/PPI_Testing.pdf"
+  },
+  {
+    "title": "Paper on Efficient Variational Inference",
+    "description": "",
+    "category": "Statistics",
+    "date": "2025-05",
+    "filename": "Variational Inference.pdf",
+    "url": "assets/pdfs/portfolio/Variational Inference.pdf"
+  },
+  {
+    "title": "Godels Incompleteness Theorem Directed Study",
+    "description": "Analysis of Godels Incompleteness Theorem with Historical Context",
+    "category": "Logic",
+    "date": "2025-02",
+    "filename": "Directed_Study_Spring_2025.pdf",
+    "url": "assets/pdfs/portfolio/Directed_Study_Spring_2025.pdf"
+  },
+  {
+    "title": "Research into Spectral Graph Theory",
+    "description": "",
+    "category": "Graph Theory",
+    "date": "2024-04",
+    "filename": "Spectral_Graph_Theory.pdf",
+    "url": "assets/pdfs/portfolio/Spectral_Graph_Theory.pdf"
+  }
+]

@@ -1,6 +1,6 @@
 [
   {
-    "title": "Week 1: Random Walks on the General Linear Group of Fp – Eugen Nesbakken",
+    "title": "Week 1: Random Walks on the General Linear Group of Fp",
     "date": "2026-02-17",
     "url": "notebooks/week1.html",
     "excerpt": "Research Project",
@@ -14,7 +14,7 @@
     "filename": "week1.html"
   },
   {
-    "title": "A Categorical View of Representation Theory – Eugen Nesbakken",
+    "title": "A Categorical View of Representation Theory",
     "date": "2026-02-07",
     "url": "notebooks/rep_theory_category_theory.html",
     "excerpt": "Category Theory in Representation Theory",
@@ -28,7 +28,7 @@
     "filename": "rep_theory_category_theory.html"
   },
   {
-    "title": "Example – Eugen Nesbakken",
+    "title": "Example",
     "date": "2025-10-02",
     "url": "notebooks/example.html",
     "excerpt": "Example notebook",
@@ -40,7 +40,7 @@
     "filename": "example.html"
   },
   {
-    "title": "Example – Eugen Nesbakken",
+    "title": "Example",
     "date": "2025-10-02",
     "url": "notebooks/example2.html",
     "excerpt": "Example notebook 2",
@@ -52,7 +52,7 @@
     "filename": "example2.html"
   },
   {
-    "title": "LaTeX Demo – Eugen Nesbakken",
+    "title": "LaTeX Demo",
     "date": "2025-01-25",
     "url": "notebooks/latex_demo.html",
     "excerpt": "Demonstrating advanced LaTeX features",

@@ -1,0 +1,24 @@
+{
+  "Directed_Study_Spring_2025.pdf": {                                                                                                                                                                                                                                                    
+    "title": "Godels Incompleteness Theorem Directed Study",                                                                                                                                                                                                                                               
+    "description": "Analysis of Godels Incompleteness Theorem with Historical Context",
+    "category": "Logic",
+    "date": "2025-02"
+  },
+"PPI_Testing.pdf": {                                                                                                                                                                                                                                                    
+    "title": "Proposal for PPI Testing for Camera PPG Values",                                                                                                                                                                                                                                               
+    "category": "Mathematics",
+    "date": "2025-10"
+  },
+  "Spectral_Graph_Theory.pdf": {                                                                                                                                                                                                                                                    
+    "title": "Research into Spectral Graph Theory",                                                                                                                                                                                                                                               
+    "category": "Graph Theory",
+    "date": "2024-04"
+  },
+  "Variational Inference.pdf": {                                                                                                                                                                                                                                                    
+    "title": "Paper on Efficient Variational Inference",                                                                                                                                                                                                                                               
+    "category": "Statistics",
+    "date": "2025-05"
+  }
+
+}

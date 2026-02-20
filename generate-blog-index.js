@@ -5,6 +5,10 @@ const path = require('path');
 const NOTEBOOKS_DIR = 'site/notebooks';
 const OUTPUT_FILE = 'site/js/blog-posts.json';
 
+const PORTFOLIO_DIR = 'site/assets/pdfs/portfolio';
+const PORTFOLIO_META_FILE = 'site/assets/pdfs/portfolio/portfolio-meta.json';
+const PORTFOLIO_OUTPUT_FILE = 'site/js/portfolio-projects.json';
+
 // Files to exclude from blog index (utility modules, not posts)
 const EXCLUDED_FILES = ['tikz.html'];
 
@@ -113,9 +117,73 @@ function generateBlogIndex() {
     console.log(`\nIndex saved to: ${OUTPUT_FILE}\n`);
 }
 
+function prettifyFilename(filename) {
+    return filename
+        .replace(/\.pdf$/i, '')
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function generatePortfolioIndex() {
+    console.log('Scanning portfolio PDFs directory:', PORTFOLIO_DIR);
+
+    if (!fs.existsSync(PORTFOLIO_DIR)) {
+        console.warn('⚠ Portfolio directory does not exist:', PORTFOLIO_DIR);
+        fs.mkdirSync(PORTFOLIO_DIR, { recursive: true });
+        fs.writeFileSync(PORTFOLIO_OUTPUT_FILE, JSON.stringify([], null, 2));
+        return;
+    }
+
+    // Load optional metadata
+    let meta = {};
+    if (fs.existsSync(PORTFOLIO_META_FILE)) {
+        try {
+            const raw = JSON.parse(fs.readFileSync(PORTFOLIO_META_FILE, 'utf-8'));
+            // Drop the _comment key if present
+            Object.keys(raw).forEach(k => { if (!k.startsWith('_')) meta[k] = raw[k]; });
+        } catch (e) {
+            console.warn('⚠ Could not parse portfolio-meta.json:', e.message);
+        }
+    }
+
+    const files = fs.readdirSync(PORTFOLIO_DIR)
+        .filter(f => f.toLowerCase().endsWith('.pdf'));
+
+    console.log(`Found ${files.length} PDF(s)`);
+
+    const projects = files.map(filename => {
+        const m = meta[filename] || {};
+        return {
+            title:       m.title       || prettifyFilename(filename),
+            description: m.description || '',
+            category:    m.category    || 'Writing',
+            date:        m.date        || '',
+            filename,
+            url: `assets/pdfs/portfolio/${filename}`
+        };
+    });
+
+    // Sort: dated entries newest-first, then undated alphabetically
+    projects.sort((a, b) => {
+        if (a.date && b.date) return b.date.localeCompare(a.date);
+        if (a.date) return -1;
+        if (b.date) return 1;
+        return a.title.localeCompare(b.title);
+    });
+
+    const outputDir = path.dirname(PORTFOLIO_OUTPUT_FILE);
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(PORTFOLIO_OUTPUT_FILE, JSON.stringify(projects, null, 2));
+
+    console.log(`\n✓ Generated portfolio index with ${projects.length} project(s):`);
+    projects.forEach(p => console.log(`  • ${p.title} (${p.category})`));
+    console.log(`\nIndex saved to: ${PORTFOLIO_OUTPUT_FILE}\n`);
+}
+
 try {
     generateBlogIndex();
+    generatePortfolioIndex();
 } catch (error) {
-    console.error('❌ Error generating blog index:', error);
+    console.error('❌ Error generating indexes:', error);
     process.exit(1);
 }

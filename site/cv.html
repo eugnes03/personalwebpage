@@ -6,13 +6,13 @@
     <title>CV - Eugen Nesbakken</title>
     <link rel="stylesheet" href="css/main.css">
     <script src="js/theme.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo"><img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="nav-profile-photo"></a>
+            <a href="index.html" class="logo">
+                <img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="nav-profile-photo">
+            </a>
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
@@ -29,76 +29,221 @@
         </div>
     </nav>
 
-    <main class="container cv">
-        <header class="cv-header">
-            <h1>Curriculum Vitae</h1>
-            <div class="cv-actions">
-                <a href="assets/pdfs/cv.pdf" class="btn btn-primary" download>Download PDF</a>
+    <main class="container cv2">
+
+        <!-- Header -->
+        <header class="cv2-header">
+            <div class="cv2-header-left">
+                <h1>Eugen Nesbakken</h1>
+                <p class="cv2-subtitle">Graduate Student in Mathematics &middot; Boston University</p>
+                <div class="cv2-contact">
+                    <span>
+                        <!-- envelope icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        eugnes@bu.edu
+                    </span>
+                    <span>
+                        <!-- globe icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        Boston, MA &nbsp;/&nbsp; Oslo, Norway
+                    </span>
+                    <span>
+                        <!-- github icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        github.com/eugnes
+                    </span>
+                </div>
             </div>
+            <a href="assets/pdfs/cv.pdf" class="btn btn-primary cv2-download" download>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download PDF
+            </a>
         </header>
 
-        <section class="cv-section">
-            <h2>Education</h2>
-            <div class="cv-item">
-                <h3>MA, Mathematics</h3>
-                <p class="cv-meta">Boston University, 2025-2026</p>
-            </div>
-            <div class="cv-item">
-                <h3>BA, Computer Science & Mathematics</h3>
-                <p class="cv-meta">Boston University, 2022-2025</p>
+        <!-- Education -->
+        <section class="cv2-section">
+            <h2 class="cv2-section-title">Education</h2>
+            <div class="cv2-timeline">
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>MA, Mathematics</h3>
+                                <p class="cv2-org">Boston University</p>
+                            </div>
+                            <span class="cv2-date">2025 – 2026</span>
+                        </div>
+                        <p class="cv2-desc">Graduate coursework in algebra, probability theory, and related areas. Aspiring PhD candidate with research interests in representation theory and neural networks.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>BA, Computer Science &amp; Mathematics</h3>
+                                <p class="cv2-org">Boston University</p>
+                            </div>
+                            <span class="cv2-date">2022 – 2025</span>
+                        </div>
+                        <p class="cv2-desc">Double major covering theoretical computer science, linear algebra, analysis, and discrete mathematics.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="cv-section">
-            <h2>Experience</h2>
-            <div class="cv-item">
-                <h3>Clojure Developer / Data Scientist</h3>
-                <p class="cv-meta">Endor Global, 2025 - </p>
-            </div>
-            <div class="cv-item">
-                <h3>Market Intelligence Intern</h3>
-                <p class="cv-meta">Subsea7, Summer 2025 </p>
-            </div>
-            <div class="cv-item">
-                <h3>Student Grader</h3>
-                <p class="cv-meta">Boston University, Spring 2025</p>
-            </div>
-            <div class="cv-item">
-                <h3>Backend Developer Intern</h3>
-                <p class="cv-meta">Dintero, Summer 2024</p>
-            </div>
-            <div class="cv-item">
-                <h3>Tennis Coach (Part-Time)</h3>
-                <p class="cv-meta">Nesøya, 2023-2024</p>
-            </div>
-            <div class="cv-item">
-                <h3>Intern</h3>
-                <p class="cv-meta">University of Oslo, 2020-2022 </p>
+        <!-- Experience -->
+        <section class="cv2-section">
+            <h2 class="cv2-section-title">Experience</h2>
+            <div class="cv2-timeline">
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Clojure Developer / Data Scientist</h3>
+                                <p class="cv2-org">Endor Global</p>
+                            </div>
+                            <span class="cv2-date">2025 – Present</span>
+                        </div>
+                        <p class="cv2-desc">Building data pipelines and analytical tools in Clojure. Working at the intersection of functional programming and applied data science.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Market Intelligence Intern</h3>
+                                <p class="cv2-org">Subsea7</p>
+                            </div>
+                            <span class="cv2-date">Summer 2025</span>
+                        </div>
+                        <p class="cv2-desc">Conducted market research and competitive analysis for a global subsea engineering firm. Delivered data-driven insights to support strategic decision-making.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Student Grader</h3>
+                                <p class="cv2-org">Boston University</p>
+                            </div>
+                            <span class="cv2-date">Spring 2025</span>
+                        </div>
+                        <p class="cv2-desc">Graded problem sets and exams for an undergraduate mathematics course, providing feedback to support student learning.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Backend Developer Intern</h3>
+                                <p class="cv2-org">Dintero</p>
+                            </div>
+                            <span class="cv2-date">Summer 2024</span>
+                        </div>
+                        <p class="cv2-desc">Developed and maintained backend services for a Norwegian payment platform. Worked with TypeScript, REST APIs, and cloud infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Tennis Coach</h3>
+                                <p class="cv2-org">Nes&oslash;ya</p>
+                            </div>
+                            <span class="cv2-date">2023 – 2024</span>
+                        </div>
+                        <p class="cv2-desc">Part-time coaching for junior and recreational players, planning drills and match-play sessions.</p>
+                    </div>
+                </div>
+
+                <div class="cv2-entry">
+                    <div class="cv2-entry-dot"></div>
+                    <div class="cv2-entry-body">
+                        <div class="cv2-entry-header">
+                            <div>
+                                <h3>Research Intern</h3>
+                                <p class="cv2-org">University of Oslo</p>
+                            </div>
+                            <span class="cv2-date">2020 – 2022</span>
+                        </div>
+                        <p class="cv2-desc">Assisted with clinical effectiveness research, contributing to data collection and statistical analysis for published studies.</p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section class="cv-section">
-            <h2>Skills</h2>
-            <ul class="cv-skills">
-                <li>Clojure</li>
-                <li>Typescript</li>
-                <li>Data Analysis</li>
-                <li>Neural Networks</li>
-                <li>Algebra</li>
-                <li>Stochastic Calculus</li>
-            </ul>
+        <!-- Skills -->
+        <section class="cv2-section">
+            <h2 class="cv2-section-title">Skills</h2>
+            <div class="cv2-skills-grid">
+                <div class="cv2-skill-group">
+                    <h3>Mathematics</h3>
+                    <ul>
+                        <li>Algebra &amp; Representation Theory</li>
+                        <li>Probability Theory</li>
+                        <li>Stochastic Calculus</li>
+                        <li>Real &amp; Functional Analysis</li>
+                    </ul>
+                </div>
+                <div class="cv2-skill-group">
+                    <h3>Programming</h3>
+                    <ul>
+                        <li>Clojure</li>
+                        <li>TypeScript / JavaScript</li>
+                        <li>Python</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="cv2-skill-group">
+                    <h3>Data &amp; ML</h3>
+                    <ul>
+                        <li>Data Analysis &amp; Visualisation</li>
+                        <li>Neural Networks</li>
+                        <li>Statistical Modelling</li>
+                        <li>Clojure Data Science Stack</li>
+                    </ul>
+                </div>
+                <div class="cv2-skill-group">
+                    <h3>Tools &amp; Platforms</h3>
+                    <ul>
+                        <li>Git / GitHub</li>
+                        <li>Quarto &amp; Clay</li>
+                        <li>LaTeX</li>
+                        <li>Linux / Bash</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <section class="cv-section">
-            <h2>Publications</h2>
-            <div class="cv-item">
-                <p>If you have technical papers with LaTeX formulas: \(E = mc^2\)</p>
-            </div>
-            <div>
-                <a href="https://pubmed.ncbi.nlm.nih.gov/36307178/">Rates of repeated colonoscopies to clean the colon from low-risk and high-risk adenomas: results from the EPoS trials</a>
-                <p>Clinical Effectiveness, UiO</p>
+        <!-- Publications -->
+        <section class="cv2-section">
+            <h2 class="cv2-section-title">Publications</h2>
+            <div class="cv2-pub">
+                <p class="cv2-pub-title">
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/36307178/" target="_blank" rel="noopener">
+                        Rates of repeated colonoscopies to clean the colon from low-risk and high-risk adenomas: results from the EPoS trials
+                    </a>
+                </p>
+                <p class="cv2-pub-meta">Clinical Effectiveness &mdash; University of Oslo, 2022</p>
             </div>
         </section>
+
     </main>
 
     <footer>
