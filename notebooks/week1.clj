@@ -47,8 +47,7 @@
 
 (math/definition
   "random-walk" "Let $(X, \\mathcal{X})$ be a measurable state space. A **random walk** on $X$ is a discrete time Markov process such that:
-                 \\begin{enumerate}
-                 \\item $\\P(X_{n+1} \\in A | X_n, X_{n+1}, \\dots, X_0) = \\P(X_{n+1} \\in | X_n)$
-                 \\end{enumerate}"
+
+1. $\\P(X_{n+1} \\in A \\mid X_n, X_{n-1}, \\dots, X_0) = \\P(X_{n+1} \\in A \\mid X_n)$"
   :name "Random Walk"
   )

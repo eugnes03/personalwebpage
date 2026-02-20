@@ -85,6 +85,7 @@ format:
                 dv: ['\\frac{\\mathrm{d} #1}{\\mathrm{d} #2}', 2],
                 pdv: ['\\frac{\\partial #1}{\\partial #2}', 2],
                 // Probability
+                P: '\\mathbb{P}',
                 E: ['\\mathbb{E}\\left[#1\\right]', 1],
                 Var: ['\\mathrm{Var}\\left(#1\\right)', 1],
                 Cov: ['\\mathrm{Cov}\\left(#1, #2\\right)', 2],
