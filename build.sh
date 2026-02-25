@@ -84,6 +84,16 @@ echo "→ Rendering Clay notebooks to Quarto markdown..."
 clojure -M:render/notebooks -A:markdown
 echo "✓ Clay notebooks rendered"
 
+# Convert TeX posts to QMD (runs before Quarto so they are included in the render)
+echo ""
+echo "→ Converting TeX posts to QMD..."
+if ls tex-posts/*.tex 1>/dev/null 2>&1; then
+    node scripts/convert-tex.js
+    echo "✓ TeX posts converted"
+else
+    echo "✓ No TeX posts found, skipping"
+fi
+
 # Render Quarto to HTML
 echo ""
 echo "→ Running Quarto render (site -> HTML)..."

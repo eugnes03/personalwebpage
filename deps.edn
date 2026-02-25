@@ -42,7 +42,15 @@
          org.eclipse.elk/org.eclipse.elk.core {:mvn/version "0.11.0"}
          org.eclipse.elk/org.eclipse.elk.alg.layered {:mvn/version "0.11.0"}
          org.eclipse.elk/org.eclipse.elk.graph {:mvn/version "0.11.0"}
-         org.eclipse.xtext/org.eclipse.xtext.xbase.lib {:mvn/version "2.36.0"}}
+         org.eclipse.xtext/org.eclipse.xtext.xbase.lib {:mvn/version "2.36.0"}
+
+         ;; Reps and Groups 
+         org.scicloj/harmonica {:mvn/version "0.1.0"}
+
+         ;; Visualization
+
+         
+         }
 
  :aliases {:repl/notebooks
            {:extra-deps {cider/cider-nrepl {:mvn/version "0.55.7"}}

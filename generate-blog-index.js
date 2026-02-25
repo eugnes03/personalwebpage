@@ -46,13 +46,23 @@ function extractMetadata(htmlContent, filename) {
                        htmlContent.match(/<meta name="dcterms\.creator" content="(.*?)"/);
     const author = authorMatch ? authorMatch[1] : 'Eugen Nesbakken';
     
-    // Extract category from Quarto-rendered YAML code block
-    const categoryMatch = htmlContent.match(/<span class="an">category:<\/span><span class="co"> ([^<]+)<\/span>/);
+    // Extract category — try Clay's YAML code block first, then the HTML
+    // comment injected by scripts/convert-tex.js for TeX-sourced posts.
+    const categoryMatch =
+      htmlContent.match(/<span class="an">category:<\/span><span class="co"> ([^<]+)<\/span>/) ||
+      htmlContent.match(/<!-- tex-post-meta:.*?category="([^"]*)".*?-->/);
     const category = categoryMatch ? categoryMatch[1].trim() : 'general';
 
-    // Extract tags from Quarto-rendered YAML code block
-    const tagsMatch = htmlContent.match(/<span class="an">tags:<\/span><span class="co"> \[([^\]]+)\]<\/span>/);
-    const tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()) : [];
+    // Extract tags — same two-source fallback as category.
+    const tagsMatch =
+      htmlContent.match(/<span class="an">tags:<\/span><span class="co"> \[([^\]]+)\]<\/span>/);
+    const texTagsMatch =
+      !tagsMatch && htmlContent.match(/<!-- tex-post-meta:.*?tags="([^"]*)".*?-->/);
+    const tags = tagsMatch
+      ? tagsMatch[1].split(',').map(t => t.trim())
+      : texTagsMatch && texTagsMatch[1]
+        ? texTagsMatch[1].split(',').map(t => t.trim()).filter(Boolean)
+        : [];
     
     return { title, date, excerpt, author, category, tags };
 }

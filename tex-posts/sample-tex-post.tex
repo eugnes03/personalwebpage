@@ -1,0 +1,76 @@
+---
+title: "Fourier Analysis on Finite Groups"
+author: "Eugen Nesbakken"
+date: "2026-02-23"
+description: "An introduction to Fourier analysis on finite abelian groups and its connections to representation theory."
+category: mathematics
+tags: [algebra, fourier-analysis, representation-theory]
+---
+
+\section{Introduction}
+
+Fourier analysis on finite groups generalises the classical discrete Fourier transform to an arbitrary finite abelian group $G$.
+The central object is the \emph{Pontryagin dual} $\hat{G}$, the group of characters of $G$.
+
+\section{Characters and the Dual Group}
+
+\begin{definition}[Character]
+A \textbf{character} of a finite abelian group $G$ is a group homomorphism
+\[
+  \chi : G \to \mathbb{C}^{\times}.
+\]
+The set of all characters forms the \textbf{Pontryagin dual} $\hat{G}$, which is itself a finite abelian group under pointwise multiplication.
+\end{definition}
+
+For $G = \mathbb{Z}/n\mathbb{Z}$, the characters are $\chi_k(m) = e^{2\pi i km/n}$ for $k = 0, 1, \ldots, n-1$, and $\hat{G} \cong G$.
+
+\section{The Fourier Transform}
+
+\begin{definition}[Fourier Transform]
+Let $f : G \to \mathbb{C}$.
+The \textbf{Fourier transform} of $f$ is the function $\hat{f} : \hat{G} \to \mathbb{C}$ defined by
+\[
+  \hat{f}(\chi) = \sum_{g \in G} f(g)\,\overline{\chi(g)}.
+\]
+\end{definition}
+
+The Fourier transform is inverted by the \textbf{Fourier inversion formula}:
+\[
+  f(g) = \frac{1}{|G|} \sum_{\chi \in \hat{G}} \hat{f}(\chi)\,\chi(g).
+\]
+
+\subsection{Orthogonality of Characters}
+
+The characters satisfy the orthogonality relations
+\[
+  \sum_{g \in G} \chi(g)\,\overline{\psi(g)} = |G|\,\delta_{\chi,\psi},
+\]
+which make $\{|G|^{-1/2}\chi\}_{\chi \in \hat{G}}$ an orthonormal basis for $L^2(G) = \mathbb{C}^G$.
+
+\section{Convolution and Plancherel}
+
+The \textbf{convolution} of $f, h : G \to \mathbb{C}$ is
+\[
+  (f * h)(g) = \sum_{x \in G} f(x)\,h(g - x).
+\]
+Under the Fourier transform, convolution becomes pointwise multiplication: $\widehat{f * h}(\chi) = \hat{f}(\chi)\,\hat{h}(\chi)$.
+
+\begin{theorem}[Plancherel]
+There is an isometry $L^2(G) \cong L^2(\hat{G})$ given by
+\[
+  \sum_{g \in G} |f(g)|^2 = \frac{1}{|G|} \sum_{\chi \in \hat{G}} |\hat{f}(\chi)|^2.
+\]
+\end{theorem}
+
+\begin{proof}
+Apply the Fourier inversion formula and the orthogonality of characters.
+\end{proof}
+
+\section{Connection to Representation Theory}
+
+For a non-abelian finite group $G$, characters of one-dimensional representations are replaced by \emph{matrix coefficients} of irreducible representations.
+The Peter--Weyl theorem (in its finite-group form) states that the functions
+\[
+  g \mapsto \sqrt{\dim V}\,\rho_{ij}(g), \qquad \rho : G \to \GL(V) \text{ irreducible},
+\]
+form an orthonormal basis for $L^2(G)$, recovering and extending the abelian theory.

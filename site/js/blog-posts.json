@@ -1,5 +1,19 @@
 [
   {
+    "title": "Fourier Analysis on Finite Groups",
+    "date": "2026-02-23",
+    "url": "notebooks/sample-tex-post.html",
+    "excerpt": "An introduction to Fourier analysis on finite abelian groups and its connections to representation theory.",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "algebra",
+      "fourier-analysis",
+      "representation-theory"
+    ],
+    "filename": "sample-tex-post.html"
+  },
+  {
     "title": "Week 1: Random Walks on the General Linear Group of Fp",
     "date": "2026-02-17",
     "url": "notebooks/week1.html",
