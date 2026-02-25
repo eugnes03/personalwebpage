@@ -15,7 +15,10 @@
    [text                            :as text]
    [group-theory.gl2                :as gl2]
    [group-theory.protocols          :as p]
+   [scicloj.kindly.v4.api           :as kindly]
    [clojure.string                  :as str]))
+
+(kindly/set-options! {:kindly/hide-code true})
 
 ;; ## Introduction
 ;;
@@ -508,6 +511,4 @@
 ;;   the mixing time grows sub-linearly relative to the group order.
 ;;
 ;; The deeper theory (Diaconis–Shahshahani, Kassabov) uses the full
-;; representation theory of $\GL_2(\mathbb{F}_p)$ — character tables,
-;; Fourier transforms on non-abelian groups, to give sharp asymptotic
-;; bounds.  That is a story for a future post.
+;; representation theory of $\GL_2(\mathbb{F}_p)$.  That is a story for a future post.
