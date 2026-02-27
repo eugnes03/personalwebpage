@@ -113,6 +113,13 @@ p {
 // ============================================
 // CODE BLOCKS
 // ============================================
+
+// Clay wraps hidden code blocks in .sourceClojure;
+// hide them so only explicitly shown code appears.
+.sourceClojure {
+  display: none;
+}
+
 pre {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
