@@ -56,9 +56,9 @@ fi
 echo ""
 echo "→ Installing Quarto..."
 if ! command -v quarto &> /dev/null; then
-    wget -q https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.549/quarto-1.4.549-linux-amd64.deb
-    sudo dpkg -i quarto-1.4.549-linux-amd64.deb
-    rm quarto-1.4.549-linux-amd64.deb
+    wget -q https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.25/quarto-1.8.25-linux-amd64.deb
+    sudo dpkg -i quarto-1.8.25-linux-amd64.deb
+    rm quarto-1.8.25-linux-amd64.deb
     echo "✓ Quarto installed"
 else
     echo "✓ Quarto already installed"
