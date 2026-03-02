@@ -1,0 +1,120 @@
+---
+title: "Application of the CLT: Stirlings Formula"
+author: "Eugen Nesbakken"
+date: "2026-03-01"
+description: "A proof of Stirlings Formula for the factorial function using the Central Limit Theorem"
+category: mathematics
+tags: [probability]
+---
+
+\section{Introduction}
+
+The Central Limit Theorem is one of the most important, and widely renowned results in probability theory. The statement
+itself is about convergence in distribution to a Gaussian distribution.
+
+\begin{theorem}[Central Limit Theorem]
+  Let $\{X_k : k \ge 1\}$ be a sequence of i.i.d random variables with expectation $\mu < \infty$ and variance $\sigma^2 < \infty$.
+  Set $S_n = \sum_{k=1}^{n} X_k$. Then
+  $$
+  \frac{S_n - n\mu}{\sigma\sqrt{n}} \xrightarrow{d} N(0,1)
+  $$
+\end{theorem}
+
+A standard proof uses characteristic functions: the characteristic function of the standardized sum converges pointwise to $e^{-\xi^2/2}$, which characterises the standard normal.
+
+\section{Stirlings Formula}
+
+Stirling's formula is an asymptotic approximation of the factorial function.
+
+\begin{theorem}[Stirling's Formula]
+  $$n! \sim \left(\frac{n}{e}\right)^n \sqrt{2\pi n}$$
+\end{theorem}
+
+Where $f(n) \sim g(n)$ means $f(n)/g(n) \to 1$ as $n \to \infty$.
+
+\section{Proof of Stirling's Formula}
+
+\subsection{Setup}
+
+Let $\{X_k : k \ge 1\}$ be i.i.d $\mathrm{Exp}(1)$ random variables, so $E[X_k] = 1$ and $\mathrm{Var}(X_k) = 1$. Set
+$$
+S_n = \sum_{k=1}^n X_k \sim \Gamma(n, 1)
+$$
+so that $S_n$ has density
+$$
+f_{S_n}(x) = \frac{x^{n-1} e^{-x}}{(n-1)!}\,\mathbb{1}_{\{x \ge 0\}}.
+$$
+Define the standardized sum $Z_n = (S_n - n)/\sqrt{n}$, which has density
+$$
+g_n(z) = \sqrt{n}\, f_{S_n}(n + z\sqrt{n}).
+$$
+Evaluating at $z = 0$:
+$$
+g_n(0) = \sqrt{n}\cdot\frac{n^{n-1}e^{-n}}{(n-1)!}.
+$$
+Multiplying both sides by $n$ shows that Stirling's formula is equivalent to
+$$
+g_n(0) \;\to\; \frac{1}{\sqrt{2\pi}}.
+$$
+We prove this limit rigorously using characteristic functions.
+
+\subsection{Characteristic Function of $Z_n$}
+
+The characteristic function of $X_k \sim \mathrm{Exp}(1)$ is
+$$
+\varphi_X(\xi) = E[e^{i\xi X}] = \frac{1}{1 - i\xi}, \qquad \xi \in \mathbb{R}.
+$$
+By independence,
+$$
+\varphi_{Z_n}(\xi)
+= e^{-i\xi\sqrt{n}}\,\varphi_X\!\left(\frac{\xi}{\sqrt{n}}\right)^n
+= e^{-i\xi\sqrt{n}}\left(1 - \frac{i\xi}{\sqrt{n}}\right)^{-n}.
+$$
+Expanding the logarithm for fixed $\xi$ as $n \to \infty$:
+$$
+-n\ln\!\left(1 - \frac{i\xi}{\sqrt{n}}\right)
+= -n\left(-\frac{i\xi}{\sqrt{n}} - \frac{\xi^2}{2n} + O(n^{-3/2})\right)
+= i\xi\sqrt{n} - \frac{\xi^2}{2} + O(n^{-1/2}).
+$$
+Therefore
+$$
+\varphi_{Z_n}(\xi) = \exp\!\left(i\xi\sqrt{n} - i\xi\sqrt{n} - \frac{\xi^2}{2} + O(n^{-1/2})\right) \;\longrightarrow\; e^{-\xi^2/2}
+$$
+pointwise for each $\xi \in \mathbb{R}$.
+
+\subsection{Dominated Convergence and Fourier Inversion}
+
+Since $g_n$ is a continuous density, the Fourier inversion formula gives
+$$
+g_n(0) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \varphi_{Z_n}(\xi)\,d\xi.
+$$
+We justify passing the limit $n \to \infty$ inside the integral via dominated convergence. The modulus of $\varphi_{Z_n}$ is
+$$
+|\varphi_{Z_n}(\xi)| = \left(1 + \frac{\xi^2}{n}\right)^{-n/2}.
+$$
+The function $n \mapsto (1 + \xi^2/n)^{n/2}$ is increasing in $n$ (since its logarithm $(n/2)\ln(1+\xi^2/n)$ has non-negative derivative in $n$), so for all $n \ge 4$:
+$$
+|\varphi_{Z_n}(\xi)| \;\le\; \left(1 + \frac{\xi^2}{4}\right)^{-2}
+$$
+which is integrable over $\mathbb{R}$. The Dominated Convergence Theorem therefore gives
+$$
+g_n(0) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \varphi_{Z_n}(\xi)\,d\xi
+\;\longrightarrow\;
+\frac{1}{2\pi}\int_{-\infty}^{\infty} e^{-\xi^2/2}\,d\xi
+= \frac{\sqrt{2\pi}}{2\pi} = \frac{1}{\sqrt{2\pi}}.
+$$
+
+\subsection{Conclusion}
+
+Recalling that $g_n(0) = \sqrt{n} \cdot n^{n-1}e^{-n}/(n-1)!$, we have shown
+$$
+\sqrt{n}\cdot\frac{n^{n-1} e^{-n}}{(n-1)!} \;\longrightarrow\; \frac{1}{\sqrt{2\pi}}.
+$$
+Multiplying through by $n$:
+$$
+n! \;\sim\; \sqrt{2\pi n}\cdot n^n \cdot e^{-n} = \sqrt{2\pi n}\left(\frac{n}{e}\right)^n. \qquad \blacksquare
+$$
+
+\begin{remark}
+ The exact form of the characteristic function of Exp(1) and its pointwise convergence to $e^{-\xi^2/2}$ is essential here. We cannot deduce based on the densities, but the CDFs since CLT does not imply pointwise convergence of the densities. The $\sqrt{2\pi}$ in Stirling's formula is precisely the $L^1$ norm of $e^{-\xi^2/2}$, i.e.\ the normalising constant of the Fourier transform of the Gaussian.
+\end{remark}
