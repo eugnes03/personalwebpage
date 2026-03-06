@@ -1,5 +1,43 @@
 [
   {
+    "title": "R-Modules in Clojure",
+    "date": "2026-03-06",
+    "url": "notebooks/modules.html",
+    "excerpt": "Encoding R-module structure in Clojure",
+    "author": "Eugen",
+    "category": "mathematics",
+    "tags": [
+      "algebra",
+      "modules",
+      "ring-theory"
+    ],
+    "filename": "modules.html"
+  },
+  {
+    "title": "Application of the CLT: Stirlings Formula",
+    "date": "2026-03-01",
+    "url": "notebooks/sample-tex-post.html",
+    "excerpt": "A cool proof from probability",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "probability"
+    ],
+    "filename": "sample-tex-post.html"
+  },
+  {
+    "title": "Application of the CLT: Stirlings Formula",
+    "date": "2026-03-01",
+    "url": "notebooks/stirlings-formula.html",
+    "excerpt": "A proof of Stirlings Formula for the factorial function using the Central Limit Theorem",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "probability"
+    ],
+    "filename": "stirlings-formula.html"
+  },
+  {
     "title": "Subgroup Lattices of Finite Groups",
     "date": "2026-02-26",
     "url": "notebooks/subgroup_lattice.html",
@@ -42,20 +80,6 @@
       "visualization"
     ],
     "filename": "visualizing_random_walks.html"
-  },
-  {
-    "title": "Fourier Analysis on Finite Groups",
-    "date": "2026-02-23",
-    "url": "notebooks/sample-tex-post.html",
-    "excerpt": "An introduction to Fourier analysis on finite abelian groups and its connections to representation theory.",
-    "author": "Eugen Nesbakken",
-    "category": "mathematics",
-    "tags": [
-      "algebra",
-      "fourier-analysis",
-      "representation-theory"
-    ],
-    "filename": "sample-tex-post.html"
   },
   {
     "title": "Week 1: Random Walks on the General Linear Group of Fp",

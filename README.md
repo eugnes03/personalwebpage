@@ -232,6 +232,15 @@ Blog posts are written as Clojure notebooks in `notebooks/`:
 - Typography (Times New Roman), content width (800px max)
 - Code blocks, math display, tables
 - Navbar/footer matching main site
+- Note to render code blocks on our blog, we need to wrap code into 
+```
+ (kind/md "<div class=\"show-code\">")
+
+  (defn foo [x] (* x x))   ;; this cell's
+  code will be visible
+
+  (kind/md "</div>")
+```
 
 ---
 

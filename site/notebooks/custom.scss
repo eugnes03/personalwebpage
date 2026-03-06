@@ -120,6 +120,12 @@ p {
   display: none;
 }
 
+// Wrap a cell with (kind/md "<div class=\"show-code\">") ... (kind/md "</div>")
+// to make that cell's source visible.
+.show-code .sourceClojure {
+  display: block !important;
+}
+
 pre {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
