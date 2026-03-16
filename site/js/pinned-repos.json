@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Ocaml_interpreter",
+    "description": "A play interpreter for a custom language, written in OCaml.",
+    "language": "OCaml",
+    "url": "https://github.com/eugnes03/Ocaml_interpreter"
+  },
+  {
+    "name": "LITHOS",
+    "description": "A small OS with threading and a shell.",
+    "language": "C",
+    "url": "https://github.com/eugnes03/LITHOS"
+  },
+  {
+    "name": "MathAtlas",
+    "description": "Open source site for modelling mathematical concepts across spaces.",
+    "language": "Clojure",
+    "url": "https://github.com/eugnes03/MathAtlas"
+  }
+]
