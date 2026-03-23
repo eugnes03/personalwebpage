@@ -6,7 +6,7 @@
     "url": "https://github.com/eugnes03/Ocaml_interpreter"
   },
   {
-    "name": "LITHOS",
+    "name": "ModulOS",
     "description": "A small OS with threading and a shell.",
     "language": "C",
     "url": "https://github.com/eugnes03/LITHOS"
@@ -16,5 +16,23 @@
     "description": "Open source site for modelling mathematical concepts across spaces.",
     "language": "Clojure",
     "url": "https://github.com/eugnes03/MathAtlas"
+  },
+  {
+    "name": "GBM",
+    "description": "Geometric Brownian Motion in C++.",
+    "language": "C++",
+    "url": "https://github.com/eugnes03/GBM"
+  },
+  {
+    "name": "Raspberry-Pi-Assistant",
+    "description": "A Telegram bot running on Raspberry Pi.",
+    "language": "Python",
+    "url": "https://github.com/eugnes03/Raspberry-Pi-Assistant"
+  },
+  {
+    "name": "qv-rl-engine",
+    "description": "A reinforcement learning engine.",
+    "language": "C++",
+    "url": "https://github.com/eugnes03/qv-rl-engine"
   }
 ]

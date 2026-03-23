@@ -1,5 +1,17 @@
 [
   {
+    "title": "Geometric Brownian Motion: An Overview",
+    "date": "2026-03-17",
+    "url": "notebooks/geometric-brownian-motion.html",
+    "excerpt": "Geometric Brownian Motion Overview and Implementation tactics in tandem with a C++ project",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "probability"
+    ],
+    "filename": "geometric-brownian-motion.html"
+  },
+  {
     "title": "R-Modules in Clojure",
     "date": "2026-03-06",
     "url": "notebooks/modules.html",

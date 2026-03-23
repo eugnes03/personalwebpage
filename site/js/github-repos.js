@@ -5,6 +5,8 @@
         'Clojure': '#db5855',
         'OCaml':   '#ef7a08',
         'C':       '#555555',
+        'C++':     '#f34b7d',
+        'Python':  '#3572A5',
     };
 
     fetch('js/pinned-repos.json')
