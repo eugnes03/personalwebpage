@@ -1,7 +1,7 @@
 /**
  * Dot-grid world map using Natural Earth 110m land data (world-atlas TopoJSON).
- * Fetches once from jsDelivr CDN, rasterises land polygons to an offscreen
- * canvas, then samples that mask to build the dot grid.
+ * Uses topojson-client for correct decoding, then rasterises land polygons to
+ * an offscreen canvas and samples that mask to build the dot grid.
  */
 (function () {
   'use strict';
@@ -22,40 +22,32 @@
     return [(lon + 180) / 360 * w, (LAT_MAX - lat) / LAT_SPAN * h];
   }
 
-  // ── Minimal TopoJSON → rings decoder ───────────────────────────────────────
-  function decodeRings(topo) {
-    const { scale, translate } = topo.transform;
-    const rawArcs = topo.arcs;
-
-    function decodeArc(idx) {
-      const src = rawArcs[idx < 0 ? ~idx : idx];
-      let x = 0, y = 0;
-      const pts = src.map(([dx, dy]) => {
-        x += dx; y += dy;
-        return [x * scale[0] + translate[0], y * scale[1] + translate[1]];
-      });
-      return idx < 0 ? pts.slice().reverse() : pts;
-    }
-
+  // ── GeoJSON ring extractor ──────────────────────────────────────────────────
+  function extractRings(geojson) {
     const rings = [];
-    for (const geom of topo.objects.land.geometries) {
-      const polys = geom.type === 'Polygon' ? [geom.arcs] : geom.arcs;
-      for (const poly of polys) {
-        // Only outer ring (index 0); holes not needed for dot-visibility
-        let ring = [];
-        for (const arcIdx of poly[0]) {
-          const pts = decodeArc(arcIdx);
-          if (ring.length) pts.shift();   // drop duplicate junction point
-          ring = ring.concat(pts);
+    for (const feature of geojson.features) {
+      const { type, coordinates } = feature.geometry;
+      if (type === 'Polygon') {
+        rings.push(coordinates[0]);
+      } else if (type === 'MultiPolygon') {
+        for (const poly of coordinates) {
+          rings.push(poly[0]);
         }
-        rings.push(ring);
       }
     }
     return rings;
   }
 
   // ── Rasterise rings → offscreen pixel mask ──────────────────────────────────
-  const MASK_W = 720, MASK_H = 360;
+  // Full standard equirectangular: simple 1:1 degree→pixel mapping.
+  const MASK_W = 1440, MASK_H = 720;
+
+  function maskXY(lon, lat) {
+    return [
+      (lon + 180) / 360 * MASK_W,
+      (90  - lat) / 180 * MASK_H,
+    ];
+  }
 
   function buildMask(rings) {
     const off = document.createElement('canvas');
@@ -68,7 +60,7 @@
     for (const ring of rings) {
       oc.beginPath();
       ring.forEach(([lon, lat], i) => {
-        const [x, y] = proj(lon, lat, MASK_W, MASK_H);
+        const [x, y] = maskXY(lon, lat);
         i === 0 ? oc.moveTo(x, y) : oc.lineTo(x, y);
       });
       oc.closePath();
@@ -82,10 +74,11 @@
 
   function sampleDots(pixels) {
     const dots = [];
-    for (let lat = -84; lat <= 84; lat += STEP) {
+    for (let lat = LAT_MIN; lat <= LAT_MAX; lat += STEP) {
       for (let lon = -180; lon < 180; lon += STEP) {
-        const mx = Math.min(MASK_W  - 1, Math.round((lon + 180) / 360 * MASK_W));
-        const my = Math.min(MASK_H - 1, Math.round((90 - lat)  / 180 * MASK_H));
+        const [fx, fy] = maskXY(lon, lat);
+        const mx = Math.min(MASK_W - 1, Math.max(0, Math.round(fx)));
+        const my = Math.min(MASK_H - 1, Math.max(0, Math.round(fy)));
         if (pixels[(my * MASK_W + mx) * 4] > 128) {
           dots.push([lon, lat]);
         }
@@ -100,7 +93,7 @@
   function sizeCanvas() {
     const container = canvas.parentElement;
     W = Math.min(container ? container.clientWidth : 900, 1000);
-    H = Math.round(W * (LAT_SPAN / 360) * 0.95); // ~37% of width
+    H = Math.round(W * (LAT_SPAN / 360) * 0.95);
     canvas.width  = W;
     canvas.height = H;
     landPx = landLL.map(([lo, la]) => proj(lo, la, W, H));
@@ -152,7 +145,6 @@
       const phase = ((ts / 2400) + i * 0.5) % 1;
       const eased = 1 - (1 - phase) * (1 - phase);
 
-      // Expanding pulse
       ctx.save();
       ctx.globalAlpha = (1 - eased) * 0.55;
       ctx.beginPath();
@@ -161,7 +153,6 @@
       ctx.fill();
       ctx.restore();
 
-      // Soft halo
       ctx.save();
       ctx.globalAlpha = 0.18;
       ctx.beginPath();
@@ -170,7 +161,6 @@
       ctx.fill();
       ctx.restore();
 
-      // Dot + white centre
       ctx.beginPath();
       ctx.arc(city.x, city.y, 3.5, 0, Math.PI * 2);
       ctx.fillStyle = c.accent;
@@ -180,7 +170,6 @@
       ctx.fillStyle = '#fff';
       ctx.fill();
 
-      // Label
       ctx.font      = '600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
       ctx.fillStyle = c.label;
       const tw = ctx.measureText(city.label).width;
@@ -192,21 +181,29 @@
   }
 
   // ── Bootstrap ───────────────────────────────────────────────────────────────
-  fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(topo => {
-      const rings  = decodeRings(topo);
-      const pixels = buildMask(rings);
-      landLL = sampleDots(pixels).filter(([, lat]) => lat >= LAT_MIN && lat <= LAT_MAX);
-      sizeCanvas();
+  // Load topojson-client, then fetch map data.
+  const topoScript = document.createElement('script');
+  topoScript.src = 'https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js';
+  topoScript.onload = () => {
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(topo => {
+        const land  = topojson.feature(topo, topo.objects.land);
+        const rings  = extractRings(land);
+        const pixels = buildMask(rings);
+        landLL = sampleDots(pixels);
+        sizeCanvas();
 
-      let rt;
-      window.addEventListener('resize', () => {
-        clearTimeout(rt);
-        rt = setTimeout(sizeCanvas, 80);
-      });
+        let rt;
+        window.addEventListener('resize', () => {
+          clearTimeout(rt);
+          rt = setTimeout(sizeCanvas, 80);
+        });
 
-      requestAnimationFrame(draw);
-    })
-    .catch(err => console.warn('[world-map] failed to load map data:', err));
+        requestAnimationFrame(draw);
+      })
+      .catch(err => console.warn('[world-map] failed to load map data:', err));
+  };
+  topoScript.onerror = () => console.warn('[world-map] failed to load topojson-client');
+  document.head.appendChild(topoScript);
 })();
