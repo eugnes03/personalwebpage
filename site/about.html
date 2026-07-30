@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Eugen Nesbakken</title>
-    <link rel="stylesheet" href="css/main.css?v=2">
-    <script src="js/theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css?v=3">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="assets/images/portrait.jpeg" alt="Eugen Nesbakken" class="nav-profile-photo">
+                <span class="logo-word">E. Nesbakken</span>
             </a>
             <div class="nav-right">
                 <ul class="nav-links">
@@ -21,10 +23,6 @@
                     <li><a href="cv.html">CV</a></li>
                     <li><a href="about.html" class="active">About</a></li>
                 </ul>
-                <button id="theme-toggle" class="theme-toggle" title="Toggle theme">
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                </button>
             </div>
         </div>
     </nav>
@@ -42,24 +40,20 @@
 
             <!-- Who I am -->
             <section class="about-section">
-                <h2 class="about-section-title">
-                    <span class="about-section-icon">&#128075;</span> Who I Am
-                </h2>
+                <p class="about-section-title">I. Who I Am</p>
                 <p>
                     I'm Eugen, a graduate student from Norway currently pursuing a Master's degree in Mathematics at Boston University. My goal is to eventually become a PhD candidate and contribute to mathematical research.
                 </p>
                 <p>
-                    This website is my attempt to stay accountable — keeping up with coursework, research ideas, and extracurriculars, while reminding myself that iterative, hands-on learning is the approach that works best for me.
+                    This website is my attempt to stay accountable, keeping up with coursework, research ideas, and extracurriculars, while reminding myself that iterative, hands-on learning is the approach that works best for me.
                 </p>
             </section>
 
             <!-- Research interests -->
             <section class="about-section">
-                <h2 class="about-section-title">
-                    <span class="about-section-icon">&#128300;</span> Research Interests
-                </h2>
+                <p class="about-section-title">II. Research Interests</p>
                 <p>
-                    My current mathematical interests lie at the intersection of <strong>algebra</strong> and <strong>probability</strong>. I am actively learning about:
+                    My current mathematical interests lie at the intersection of <em>algebra</em> and <em>probability</em>. I am actively learning about:
                 </p>
                 <ul class="about-list">
                     <li><strong>Representation Theory</strong> — the study of how algebraic structures act on vector spaces</li>
@@ -73,54 +67,33 @@
 
             <!-- Beyond academia -->
             <section class="about-section">
-                <h2 class="about-section-title">
-                    <span class="about-section-icon">&#127934;</span> Beyond Academia
-                </h2>
+                <p class="about-section-title">III. Beyond Academia</p>
                 <p>
-                    Outside of mathematics I am an avid <strong>tennis</strong> and <strong>chess</strong> player. I believe staying physically and mentally active outside of study is just as important as the study itself — and the two often reinforce each other in surprising ways.
+                    Outside of mathematics I am an avid <em>tennis</em> and <em>chess</em> player. I believe staying physically and mentally active outside of study is just as important as the study itself, and the two often reinforce each other in surprising ways.
                 </p>
                 <div class="about-interest-grid">
-                    <div class="about-interest-card">
-                        <span class="interest-icon">&#127934;</span>
-                        <span>Tennis</span>
-                    </div>
-                    <div class="about-interest-card">
-                        <span class="interest-icon">&#9822;</span>
-                        <span>Chess</span>
-                    </div>
-                    <div class="about-interest-card">
-                        <span class="interest-icon">&#128218;</span>
-                        <span>Mathematics</span>
-                    </div>
-                    <div class="about-interest-card">
-                        <span class="interest-icon">&#128187;</span>
-                        <span>Programming</span>
-                    </div>
+                    <span>Tennis</span><span class="dot">&middot;</span><span>Chess</span><span class="dot">&middot;</span><span>Mathematics</span><span class="dot">&middot;</span><span>Programming</span>
                 </div>
             </section>
 
             <!-- About this site -->
             <section class="about-section">
-                <h2 class="about-section-title">
-                    <span class="about-section-icon">&#128196;</span> About This Site
-                </h2>
+                <p class="about-section-title">IV. About This Site</p>
                 <p>
                     The notebooks on this website are written in <strong>Clojure</strong> and rendered using <a href="https://github.com/scicloj/clay" target="_blank" rel="noopener">Clay</a> and <a href="https://quarto.org" target="_blank" rel="noopener">Quarto</a>, inspired by the <a href="https://clojurians.zulipchat.com/#narrow/channel/321125-clojure-data-cookbook" target="_blank" rel="noopener">Clojure Civitas</a> community.
                 </p>
                 <p>
-                    I find Clojure's interactive, REPL-driven workflow ideal for mathematical exploration — it keeps the feedback loop tight and the code close to the mathematics.
+                    I find Clojure's interactive, REPL-driven workflow ideal for mathematical exploration, it keeps the feedback loop tight and the code close to the mathematics.
                 </p>
             </section>
 
             <!-- Contact -->
             <section class="about-section about-section-last">
-                <h2 class="about-section-title">
-                    <span class="about-section-icon">&#9993;</span> Get in Touch
-                </h2>
+                <p class="about-section-title">V. Get in Touch</p>
                 <p>
-                    Questions, comments, collaboration ideas — feel free to reach out. I'm always happy to talk mathematics, programming, or anything in between.
+                    Questions, comments, collaboration ideas, feel free to reach out. I'm always happy to talk mathematics, programming, or anything in between.
                 </p>
-                <a href="mailto:eugnes@bu.edu" class="btn btn-primary about-contact-btn">Send me an email</a>
+                <a href="mailto:eugnes@bu.edu" class="btn">Send me an email</a>
             </section>
 
         </div>
@@ -128,10 +101,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Eugen Nesbakken. All rights reserved.</p>
+            <p>&copy; 2026 Eugen Nesbakken</p>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
 </body>
 </html>

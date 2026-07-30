@@ -19,21 +19,17 @@
         });
 
     function repoCard(r) {
-        const desc = r.description ? `<p class="gh-card-desc">${escHtml(r.description)}</p>` : '';
-        const color = r.language ? (LANG_COLORS[r.language] ?? '#8b949e') : null;
+        const desc = r.description ? `<span class="gh-row-desc">${escHtml(r.description)}</span>` : '';
+        const color = r.language ? (LANG_COLORS[r.language] ?? '#8b7c68') : null;
         const langBadge = r.language
-            ? `<span class="gh-lang"><span class="gh-lang-dot" style="background:${color}"></span>${escHtml(r.language)}</span>`
+            ? `<span class="gh-row-lang"><span class="gh-lang-dot" style="background:${color}"></span>${escHtml(r.language)}</span>`
             : '';
 
         return `
-        <a class="gh-card" href="${r.url}" target="_blank" rel="noopener noreferrer">
-            <div class="gh-card-body">
-                <h3 class="gh-card-name">${escHtml(r.name)}</h3>
-                ${desc}
-            </div>
-            <div class="gh-card-footer">
-                ${langBadge}
-            </div>
+        <a class="gh-row" href="${r.url}" target="_blank" rel="noopener noreferrer">
+            <span class="gh-row-name">${escHtml(r.name)}</span>
+            ${desc}
+            ${langBadge}
         </a>`;
     }
 

@@ -1,17 +1,6 @@
 [
   {
-    "title": "Geometric Brownian Motion: An Overview",
-    "date": "2026-03-17",
-    "url": "notebooks/geometric-brownian-motion.html",
-    "excerpt": "Geometric Brownian Motion Overview and Implementation tactics in tandem with a C++ project",
-    "author": "Eugen Nesbakken",
-    "category": "mathematics",
-    "tags": [
-      "probability"
-    ],
-    "filename": "geometric-brownian-motion.html"
-  },
-  {
+    "slug": "modules",
     "title": "R-Modules in Clojure",
     "date": "2026-03-06",
     "url": "notebooks/modules.html",
@@ -26,18 +15,7 @@
     "filename": "modules.html"
   },
   {
-    "title": "Application of the CLT: Stirlings Formula",
-    "date": "2026-03-01",
-    "url": "notebooks/sample-tex-post.html",
-    "excerpt": "A cool proof from probability",
-    "author": "Eugen Nesbakken",
-    "category": "mathematics",
-    "tags": [
-      "probability"
-    ],
-    "filename": "sample-tex-post.html"
-  },
-  {
+    "slug": "stirlings-formula",
     "title": "Application of the CLT: Stirlings Formula",
     "date": "2026-03-01",
     "url": "notebooks/stirlings-formula.html",
@@ -50,6 +28,7 @@
     "filename": "stirlings-formula.html"
   },
   {
+    "slug": "subgroup-lattice",
     "title": "Subgroup Lattices of Finite Groups",
     "date": "2026-02-26",
     "url": "notebooks/subgroup_lattice.html",
@@ -64,21 +43,7 @@
     "filename": "subgroup_lattice.html"
   },
   {
-    "title": "Random Walks on GL₂(𝔽ₚ)",
-    "date": "2026-02-25",
-    "url": "notebooks/random-walks-gl2.html",
-    "excerpt": "A detailed treatment of random walks on the general linear group over a finite field — group structure, generating sets, total variation distance, spectral gap, and the non-abelian Fourier-analytic upper bound.",
-    "author": "Eugen Nesbakken",
-    "category": "mathematics",
-    "tags": [
-      "algebra",
-      "probability",
-      "representation-theory",
-      "random-walks"
-    ],
-    "filename": "random-walks-gl2.html"
-  },
-  {
+    "slug": "visualizing-random-walks",
     "title": "Visualizing Random Walks on GL₂(𝔽ₚ)",
     "date": "2026-02-25",
     "url": "notebooks/visualizing_random_walks.html",
@@ -94,6 +59,7 @@
     "filename": "visualizing_random_walks.html"
   },
   {
+    "slug": "week1",
     "title": "Week 1: Random Walks on the General Linear Group of Fp",
     "date": "2026-02-17",
     "url": "notebooks/week1.html",
@@ -108,6 +74,7 @@
     "filename": "week1.html"
   },
   {
+    "slug": "rep-theory-category-theory",
     "title": "A Categorical View of Representation Theory",
     "date": "2026-02-07",
     "url": "notebooks/rep_theory_category_theory.html",
@@ -120,43 +87,5 @@
       "representation-theory"
     ],
     "filename": "rep_theory_category_theory.html"
-  },
-  {
-    "title": "Example",
-    "date": "2025-10-02",
-    "url": "notebooks/example.html",
-    "excerpt": "Example notebook",
-    "author": "Eugen",
-    "category": "general",
-    "tags": [
-      "example"
-    ],
-    "filename": "example.html"
-  },
-  {
-    "title": "Example",
-    "date": "2025-10-02",
-    "url": "notebooks/example2.html",
-    "excerpt": "Example notebook 2",
-    "author": "Eugen",
-    "category": "general",
-    "tags": [
-      "example"
-    ],
-    "filename": "example2.html"
-  },
-  {
-    "title": "LaTeX Demo",
-    "date": "2025-01-25",
-    "url": "notebooks/latex_demo.html",
-    "excerpt": "Demonstrating advanced LaTeX features",
-    "author": "Eugen Nesbakken",
-    "category": "math",
-    "tags": [
-      "latex",
-      "math",
-      "demo"
-    ],
-    "filename": "latex_demo.html"
   }
 ]

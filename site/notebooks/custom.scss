@@ -1,58 +1,81 @@
 /*-- scss:defaults --*/
 
-// Typography - Times New Roman for content, system fonts for UI
-$font-family-sans-serif: "Times New Roman", Times, serif;
-$font-family-monospace: "Fira Code", "Source Code Pro", Consolas, monospace;
+// Typography — Source Serif 4 for body copy, matching the rest of the site
+$font-family-sans-serif: 'Source Serif 4', Georgia, serif;
+$font-family-serif: 'Source Serif 4', Georgia, serif;
+$font-family-monospace: ui-monospace, Menlo, monospace;
 
-// Colors matching main site
-$primary: #007bff;
-$body-bg: #fff;
-$body-color: #333;
-$link-color: #007bff;
+// Colors — "Working Notes" paper palette
+$paper: #f6f1e7;
+$paper-deep: #efe8d8;
+$ink: #2b2420;
+$ink-soft: #3a332d;
+$muted: #5a4f43;
+$label-muted: #8a7c68;
+$hairline: #ddd3bf;
+$hairline-light: #e7dfcd;
+$accent: #7a2e22;
+
+$primary: $accent;
+$body-bg: $paper;
+$body-color: $ink;
+$link-color: $accent;
 
 // Content width
-$max-width: 1000px;
+$max-width: 1040px;
 
 /*-- scss:rules --*/
 
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
 // ============================================
-// NAVBAR - Match main site styling
+// NAVBAR — reskin Quarto's bootstrap navbar to match the site nav
 // ============================================
 .navbar {
-  background: #fff !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-  padding: 1rem 0 !important;
+  background: $paper !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid $hairline !important;
+  padding: 14px 0 !important;
   position: sticky !important;
   top: 0 !important;
   z-index: 1000 !important;
 }
 
 .navbar-brand img {
-  width: 40px !important;
-  height: 40px !important;
+  width: 32px !important;
+  height: 32px !important;
   border-radius: 50% !important;
   object-fit: cover !important;
+  filter: grayscale(35%);
+  border: 1px solid $hairline;
 }
 
 .navbar-nav .nav-link {
-  color: #666 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
-  transition: color 0.3s !important;
+  color: $label-muted !important;
+  font-family: 'Source Serif 4', Georgia, serif !important;
+  font-size: 12px !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.2s !important;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-  color: #007bff !important;
+  color: $ink !important;
+}
+
+.navbar-nav .nav-link.active {
+  border-bottom: 1px solid $accent;
 }
 
 // ============================================
 // MAIN CONTENT AREA
 // ============================================
 body {
-  font-family: "Times New Roman", Times, serif;
-  line-height: 1.8;
-  color: #333;
-  background: #fff;
+  font-family: 'Source Serif 4', Georgia, serif;
+  line-height: 1.7;
+  color: $ink;
+  background: $paper;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -71,17 +94,19 @@ main.content {
 // TYPOGRAPHY
 // ============================================
 h1, h2, h3, h4, h5, h6 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 600;
-  color: #333;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  color: $ink;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
 // Page title styling
 h1.title {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 16px;
   text-align: center;
   border: none;
   padding-bottom: 0;
@@ -89,70 +114,120 @@ h1.title {
 
 .quarto-title-meta {
   text-align: center;
-  color: #666;
+  color: $label-muted;
+  font-size: 12.5px;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $hairline;
+}
+
+.quarto-title-banner {
+  background: $paper;
+  padding-bottom: 20px;
+}
+
+.quarto-title .description,
+.quarto-title-meta-heading {
+  font-style: italic;
+  color: $muted;
 }
 
 h2 {
-  font-size: 1.8rem;
-  color: #007bff;
-  margin-top: 3rem;
+  font-size: 22px;
+  font-weight: 500;
+  color: $ink;
+  margin-top: 32px;
+  scroll-margin-top: 100px;
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 18px;
+  scroll-margin-top: 100px;
 }
 
 p {
   margin-bottom: 1.25rem;
-  font-size: 1.1rem;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+// ============================================
+// "Back to Blog" link (injected via include-after-body)
+// ============================================
+.back-to-blog {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $accent;
+  text-decoration: none;
+  margin: 24px 0 0;
 }
 
 // ============================================
 // CODE BLOCKS
 // ============================================
-
-// Clay wraps hidden code blocks in .sourceClojure;
-// hide them so only explicitly shown code appears.
 .sourceClojure {
   display: none;
 }
 
-// Wrap a cell with (kind/md "<div class=\"show-code\">") ... (kind/md "</div>")
-// to make that cell's source visible.
 .show-code .sourceClojure {
   display: block !important;
 }
 
 pre {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  padding: 1rem;
-  font-size: 0.9rem;
+  background-color: $paper-deep;
+  border: 1px solid $hairline;
+  border-radius: 0;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.7;
   overflow-x: auto;
 }
 
 code {
   font-family: $font-family-monospace;
-  font-size: 0.9em;
+  font-size: 0.92em;
+  color: $ink-soft;
 }
 
 p code, li code {
-  background-color: #f8f9fa;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  color: #e83e8c;
+  background-color: $paper-deep;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid $hairline;
+  border-radius: 0;
+  color: $ink-soft;
 }
 
 div.sourceCode {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  margin: 1.5rem 0;
+  background-color: $paper-deep;
+  border: 1px solid $hairline;
+  border-radius: 0;
+  margin: 20px 0;
+  position: relative;
 }
+
+div.sourceCode pre {
+  border: none;
+  background: transparent;
+}
+
+// language label header strip
+div.sourceCode::before {
+  content: "code";
+  display: block;
+  font: 12px ui-monospace, Menlo, monospace;
+  color: $label-muted;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  border-bottom: 1px solid $hairline;
+}
+
+div.sourceCode.clojure::before { content: "clojure"; }
+div.sourceCode.markdown::before { content: "markdown"; }
+div.sourceCode.python::before { content: "python"; }
+div.sourceCode.bash::before { content: "bash"; }
+div.sourceCode.r::before { content: "r"; }
 
 // ============================================
 // MATH DISPLAY
@@ -177,24 +252,24 @@ table {
 
 th, td {
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid $hairline-light;
   text-align: left;
 }
 
 th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: $paper-deep;
+  font-weight: 500;
+  font-family: 'Source Serif 4', Georgia, serif;
 }
 
 // ============================================
 // BLOCKQUOTES
 // ============================================
 blockquote {
-  border-left: 4px solid #007bff;
-  padding-left: 1.5rem;
+  border-left: 2px solid $hairline;
+  padding-left: 20px;
   margin: 1.5rem 0;
-  color: #555;
+  color: $muted;
   font-style: italic;
 }
 
@@ -202,70 +277,100 @@ blockquote {
 // LINKS & BUTTONS
 // ============================================
 a {
-  color: #007bff;
+  color: $accent;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.2s;
 }
 
 a:hover {
-  color: #0056b3;
+  color: $accent;
   text-decoration: underline;
 }
 
 .btn, button {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  padding: 9px 18px;
+  background: transparent;
+  color: $accent;
+  border: 1px solid $accent;
+  border-radius: 0;
   cursor: pointer;
-  transition: background 0.3s;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .btn:hover, button:hover {
-  background: #0056b3;
+  background: rgba(122, 46, 34, 0.06);
 }
 
 // ============================================
-// TABLE OF CONTENTS
+// TABLE OF CONTENTS — "On This Page"
 // ============================================
+#quarto-margin-sidebar {
+  width: 180px !important;
+}
+
 #TOC {
-  background-color: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 8px;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
   margin-bottom: 2rem;
-  border: 1px solid #e9ecef;
+  border: none;
+  position: sticky;
+  top: 100px;
+}
+
+#toc-title {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $label-muted;
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+
+#TOC ul {
+  list-style: none;
+  padding-left: 0;
 }
 
 #TOC a {
-  color: #666;
+  color: $muted;
+  font-size: 13px;
+  padding: 6px 0 6px 12px;
+  border-left: 2px solid $hairline;
+  display: block;
+  text-decoration: none;
 }
 
-#TOC a:hover {
-  color: #007bff;
+#TOC a:hover,
+#TOC a.active {
+  color: $ink;
+  border-left-color: $accent;
 }
 
 // ============================================
 // FIGURES & IMAGES
 // ============================================
 figure {
-  margin: 2rem 0;
+  margin: 28px 0;
   text-align: center;
 }
 
 figure img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid $hairline;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 figcaption {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 0.75rem;
+  font-size: 13.5px;
+  color: $label-muted;
+  margin-top: 10px;
   font-style: italic;
 }
 
@@ -274,112 +379,110 @@ figcaption {
   display: block;
   margin: 2rem auto;
   max-width: 100%;
+  border: 1px solid $hairline;
 }
 
 // ============================================
 // FOOTER
 // ============================================
 footer, .nav-footer {
-  background: #f8f9fa !important;
-  padding: 2rem 0 !important;
+  background: $paper !important;
+  border-top: 1px solid $hairline !important;
+  padding: 28px 0 !important;
   text-align: center !important;
   margin-top: 4rem !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  font-family: 'Source Serif 4', Georgia, serif !important;
+  color: $label-muted !important;
+  font-style: italic;
+  font-size: 12px;
 }
 
 // ============================================
-// CARDS (for any card-like elements)
+// CARDS / CALLOUTS — flattened, no shadows
 // ============================================
 .card, .callout {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid $hairline;
+  border-radius: 0;
   padding: 1.5rem;
   margin: 1.5rem 0;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover, .callout:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: $paper-deep;
+  box-shadow: none;
 }
 
 // ============================================
 // THEOREM ENVIRONMENTS (Quarto fenced divs)
 // ============================================
-
-// Shared base for all theorem-like boxes
+// Plain typographic treatment: hairline top+bottom rule,
+// small-caps oxblood label line, no background tint or color-coding.
 .theorem {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  border-radius: 6px;
-  border-left: 4px solid;
-  font-size: 1.05rem;
+  margin: 28px 0;
+  padding: 20px 0;
+  border-top: 1px solid $hairline-light;
+  border-bottom: 1px solid $hairline-light;
+  border-left: none;
+  border-radius: 0;
+  background: none;
+  font-size: 17px;
 
-  // Header (auto-generated by Quarto: "Definition 1", "Theorem 2", etc.)
-  & > .theorem-title,
-  & > p:first-child > strong:first-child {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
+  .theorem-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $accent;
+    font-weight: 400;
+    font-style: normal;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
+
+    strong {
+      font-weight: 400;
+    }
   }
 
-  // Prevent excessive spacing inside boxes
   p:last-child {
     margin-bottom: 0;
   }
 }
 
-// Definition — blue
-.theorem.definition {
-  border-left-color: #007bff;
-  background-color: rgba(0, 123, 255, 0.05);
-}
-
-// Theorem, Lemma, Proposition, Corollary — amber
-.theorem.theorem,
-.theorem.lemma,
-.theorem.proposition,
-.theorem.corollary {
-  border-left-color: #d4a017;
-  background-color: rgba(212, 160, 23, 0.05);
-}
-
-// Conjecture — purple
-.theorem.conjecture {
-  border-left-color: #7c3aed;
-  background-color: rgba(124, 58, 237, 0.05);
-}
-
-// Example, Exercise — green
-.theorem.example,
-.theorem.exercise {
-  border-left-color: #28a745;
-  background-color: rgba(40, 167, 69, 0.05);
-}
-
-// Remark — gray, subtle
-.theorem.remark {
-  border-left-color: #999;
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-// Proof — thin gray border, no background
+// Proof — inline, no box, ends with the author's own $\square$
 .proof {
   margin: 1.5rem 0;
-  padding: 0.75rem 1.25rem;
-  border-left: 2px solid #ccc;
-  font-size: 1.05rem;
+  padding: 0;
+  border-left: none;
+  font-size: 16px;
+  color: $ink-soft;
 
-  & > .proof-title {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
-    font-style: italic;
-    margin-bottom: 0.5rem;
+  .proof-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-style: normal;
+    color: $ink-soft;
+
+    em {
+      font-style: italic;
+    }
   }
 
   p:last-child {
     margin-bottom: 0;
+  }
+}
+
+// Remark — left-hairline-indented italic paragraph, "Remark." label in oxblood
+.proof.remark {
+  border-left: 2px solid $hairline;
+  padding-left: 20px;
+  color: $muted;
+  font-style: italic;
+
+  .proof-title {
+    color: $accent;
+    font-style: normal;
+
+    em {
+      font-style: normal;
+    }
   }
 }
 
@@ -392,10 +495,14 @@ footer, .nav-footer {
   }
 
   h1.title {
-    font-size: 2rem;
+    font-size: 28px;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 19px;
+  }
+
+  #quarto-margin-sidebar {
+    display: none !important;
   }
 }

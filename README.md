@@ -1,6 +1,6 @@
 # Personal Website
 
-A personal website built with Clojure Clay notebooks and Quarto, deployed to Netlify.
+A personal website built with Clojure Clay notebooks and Quarto, deployed to GitHub Pages via GitHub Actions.
 
 ## Table of Contents
 
@@ -53,14 +53,17 @@ personalwebpage/
 ├── clay.edn                    # Clay notebook rendering config
 ├── deps.edn                    # Clojure dependencies
 ├── generate-blog-index.js      # Generates blog-posts.json from HTML
-├── netlify.toml                # Netlify deployment config
+├── .github/workflows/deploy.yml # GitHub Actions build + deploy to GitHub Pages
 │
 ├── notebooks/                  # SOURCE: Clojure blog post notebooks
-│   ├── example.clj
-│   ├── example2.clj
-│   ├── latex-demo.clj
-│   ├── rep-theory-category-theory.clj
+│   ├── latex_demo.clj
+│   ├── modules.clj
+│   ├── rep_theory_category_theory.clj
+│   ├── subgroup_lattice.clj
+│   ├── visualizing_random_walks.clj
 │   └── week1.clj
+│
+├── tex-posts/                   # SOURCE: TeX blog posts (converted via scripts/convert-tex.js)
 │
 ├── src/                        # Helper namespaces (not rendered by Clay)
 │   ├── math.clj                # Theorem/proof environments
@@ -68,9 +71,10 @@ personalwebpage/
 │   └── text.clj                # Titles, quotes, citations, downloads
 │
 ├── scripts/
+│   ├── convert-tex.js          # TeX post → Quarto .qmd conversion
 │   └── render-tikz.sh          # TikZ → PNG shell script
 │
-└── site/                       # OUTPUT: Final website (Netlify publish dir)
+└── site/                       # OUTPUT: Final website (GitHub Pages publish dir)
     ├── index.html              # Home page
     ├── blog.html               # Blog listing page
     ├── portfolio.html          # Portfolio page
@@ -78,13 +82,13 @@ personalwebpage/
     ├── about.html              # About page
     │
     ├── css/
-    │   ├── main.css            # Main site styles (light/dark theme CSS vars)
-    │   └── blog.css            # Blog card & filter styles
+    │   ├── main.css            # Design tokens, nav/footer/hero/CV/About/Portfolio styles
+    │   └── blog.css            # Blog listing (featured post, filters, post rows)
     │
     ├── js/
-    │   ├── theme.js            # Dark/light mode toggle
-    │   ├── main.js             # General page logic
-    │   ├── blog.js             # Blog post loading & category filtering
+    │   ├── blog.js             # Blog post loading & category/year filtering
+    │   ├── portfolio.js        # Portfolio filtering & PDF modal
+    │   ├── github-repos.js     # Pinned GitHub repo list
     │   └── blog-posts.json     # Auto-generated blog index (DO NOT EDIT)
     │
     ├── assets/
@@ -222,14 +226,14 @@ Blog posts are written as Clojure notebooks in `notebooks/`:
 ### Styling
 
 **Main site CSS:** `site/css/main.css`
-- Navbar, hero section, social links, link cards, portfolio grid
-- Light/dark theme via CSS custom properties
+- Navbar, hero section, numbered Contents/Recent Entries lists, CV, About, Portfolio
+- Paper/ink/oxblood design tokens via CSS custom properties (single theme, no dark mode)
 
 **Blog CSS:** `site/css/blog.css`
-- Post cards, category tags, search bar
+- Featured post, sidebar category/archive filters, post rows, tag pills
 
 **Notebook CSS:** `site/notebooks/custom.scss`
-- Typography (Times New Roman), content width (800px max)
+- Typography (Source Serif 4), content width (1040px max)
 - Code blocks, math display, tables
 - Navbar/footer matching main site
 - Note to render code blocks on our blog, we need to wrap code into 
@@ -456,7 +460,7 @@ sudo apt install texlive-full imagemagick
 
 **Pre-loaded TikZ libraries:** `arrows.meta`, `positioning`, `calc`, `shapes`, `backgrounds`, `decorations.pathmorphing`, `decorations.markings`, `patterns`, `matrix`, `fit`, `chains`, `pgfplots`.
 
-To add more, edit the `\\usetikzlibrary{...}` line in `notebooks/tikz.clj`.
+To add more, edit the `\\usetikzlibrary{...}` line in `src/tikz.clj`.
 
 Manual rendering: `./scripts/render-tikz.sh input.tikz output.png [dpi]`
 
@@ -523,7 +527,7 @@ Edit `deps.edn`:
 |------|---------|
 | `clay.edn` | Clay config: source path `notebooks/`, output to `site/notebooks/notebook/` |
 | `deps.edn` | Clojure deps & aliases. `:paths` includes `notebooks/` and `site/` |
-| `netlify.toml` | Netlify: Java 17, Node 18, publish dir `site/` |
+| `.github/workflows/deploy.yml` | GitHub Actions: Java 17, Node 18, deploys `site/` to GitHub Pages |
 | `site/notebooks/_quarto.yml` | Quarto: theme, MathJax, macros, navbar |
 
 ---
@@ -559,8 +563,8 @@ format:
     number-sections: true
     code-fold: false    # Don't collapse code
     code-tools: true    # Show code tools
-    fontsize: 1.1em
-    mainfont: "Times New Roman"
+    fontsize: 17px
+    mainfont: "Source Serif 4"
 ```
 
 ### Changing the Theme
@@ -617,19 +621,15 @@ Utility namespaces (`tikz.html`, `math.html`, `text.html`) are also removed by `
 
 ## Deployment
 
-### Netlify (Current)
+### GitHub Pages (Current)
 
-Configured in `netlify.toml`:
-
-```toml
-[build]
-  command = "./build.sh"
-  publish = "site"
-```
+Configured in `.github/workflows/deploy.yml`, which runs `bash build.sh` and publishes `site/` via `actions/deploy-pages`.
 
 **Deploy:**
-1. Push to GitHub
-2. Netlify auto-deploys from main branch
+1. Push to `main`
+2. GitHub Actions builds and deploys automatically (or trigger manually via `workflow_dispatch`)
+
+Notebook pages (`site/notebooks/_quarto.yml`) hardcode absolute `https://eugnes03.github.io/personalwebpage/...` URLs for the nav and "Back to Blog" link — update these if the GitHub Pages path ever changes.
 
 ### Manual Deployment
 
@@ -694,13 +694,13 @@ convert -density 300 test.pdf test.png
 | File | Edit for... |
 |------|-------------|
 | `site/index.html` | Home page layout, social links |
-| `site/css/main.css` | Main site styling, light/dark theme |
-| `site/css/blog.css` | Blog card styling |
+| `site/css/main.css` | Site-wide design tokens, nav, hero, CV/About/Portfolio |
+| `site/css/blog.css` | Blog listing styling (featured post, filters, post rows) |
 | `site/notebooks/_quarto.yml` | LaTeX config, MathJax macros, navbar |
 | `site/notebooks/custom.scss` | Notebook typography, colors, layout |
-| `notebooks/math.clj` | Theorem/proof environments, add new math env types |
-| `notebooks/text.clj` | Titles, blockquotes, citations, download links |
-| `notebooks/tikz.clj` | TikZ rendering, add TikZ libraries |
+| `src/math.clj` | Theorem/proof environments, add new math env types |
+| `src/text.clj` | Titles, blockquotes, citations, download links |
+| `src/tikz.clj` | TikZ rendering, add TikZ libraries |
 | `clay.edn` | Clay rendering config (source/target paths) |
 | `deps.edn` | Clojure dependencies |
 | `generate-blog-index.js` | Blog index generation, excluded files |

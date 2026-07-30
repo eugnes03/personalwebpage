@@ -78,6 +78,15 @@ echo "→ Downloading Clojure dependencies..."
 clojure -P -M:render/notebooks
 echo "✓ Dependencies downloaded"
 
+# Clean stale generated output so renamed/removed notebooks don't leave
+# orphaned .qmd/.html files behind (they'd otherwise still get picked up
+# by generate-blog-index.js and show up as duplicate/dead posts).
+echo ""
+echo "→ Clearing previous notebook output..."
+rm -rf site/notebooks/notebook
+rm -f site/notebooks/*.html
+echo "✓ Stale output cleared"
+
 # Render Clay notebooks to Quarto markdown
 echo ""
 echo "→ Rendering Clay notebooks to Quarto markdown..."

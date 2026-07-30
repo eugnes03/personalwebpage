@@ -12,59 +12,87 @@ const PORTFOLIO_OUTPUT_FILE = 'site/js/portfolio-projects.json';
 // Files to exclude from blog index (utility modules, not posts)
 const EXCLUDED_FILES = ['tikz.html'];
 
-function extractMetadata(htmlContent, filename) {
-    // Try <h1 class="title"> first (clean post title, no site name).
-    // Fall back to <title> tag with site-name stripping for both Quarto formats:
-    //   Quarto 1.4: "Site Name - Post Title"  (prefix, regular hyphen)
-    //   Quarto 1.8: "Post Title – Site Name"  (suffix, em-dash)
+// Try <h1 class="title"> first (clean post title, no site name).
+// Fall back to <title> tag with site-name stripping for both Quarto formats:
+//   Quarto 1.4: "Site Name - Post Title"  (prefix, regular hyphen)
+//   Quarto 1.8: "Post Title – Site Name"  (suffix, em-dash)
+function extractTitle(htmlContent, filename) {
     const titleMatch = htmlContent.match(/<h1[^>]*class="[^"]*title[^"]*"[^>]*>(.*?)<\/h1>/) ||
                        htmlContent.match(/<title>(.*?)<\/title>/);
     const rawTitle = titleMatch ? titleMatch[1].replace(/<[^>]*>/g, '').trim() : filename.replace('.html', '');
-    const title = rawTitle
+    return rawTitle
         .replace(/^Eugen Nesbakken\s*[-–—]\s*/, '')
         .replace(/\s*[-–—]\s*Eugen Nesbakken\s*$/, '')
         .trim();
-    
-    // Extract date from Quarto meta or filename
+}
+
+// Extract date from Quarto meta, falling back to a date embedded in the filename.
+function extractDate(htmlContent, filename) {
     const metaDateMatch = htmlContent.match(/<meta name="dcterms\.date" content="(.*?)"/) ||
                          htmlContent.match(/<meta name="date" content="(.*?)"/);
-    const dateMatch = filename.match(/(\d{4}-\d{2}-\d{2})/);
-    const date = metaDateMatch ? metaDateMatch[1] : 
-                 dateMatch ? dateMatch[1] : 
-                 new Date().toISOString().split('T')[0];
-    
-    // Extract description from Quarto meta or first paragraph
+    if (metaDateMatch) return metaDateMatch[1];
+
+    const filenameDateMatch = filename.match(/(\d{4}-\d{2}-\d{2})/);
+    if (filenameDateMatch) return filenameDateMatch[1];
+
+    return new Date().toISOString().split('T')[0];
+}
+
+// Extract description from Quarto meta, falling back to the first paragraph.
+function extractExcerpt(htmlContent) {
     const descMatch = htmlContent.match(/<meta name="description" content="(.*?)"/) ||
                      htmlContent.match(/<meta property="og:description" content="(.*?)"/);
+    if (descMatch) return descMatch[1];
+
     const paraMatch = htmlContent.match(/<p[^>]*>(.*?)<\/p>/);
-    const excerpt = descMatch ? descMatch[1] :
-                    paraMatch ? paraMatch[1].replace(/<[^>]*>/g, '').substring(0, 200).trim() + '...' :
-                    'A notebook exploring interesting topics.';
-    
-    // Extract author
+    if (paraMatch) return paraMatch[1].replace(/<[^>]*>/g, '').substring(0, 200).trim() + '...';
+
+    return 'A notebook exploring interesting topics.';
+}
+
+function extractAuthor(htmlContent) {
     const authorMatch = htmlContent.match(/<meta name="author" content="(.*?)"/) ||
                        htmlContent.match(/<meta name="dcterms\.creator" content="(.*?)"/);
-    const author = authorMatch ? authorMatch[1] : 'Eugen Nesbakken';
-    
-    // Extract category — try Clay's YAML code block first, then the HTML
-    // comment injected by scripts/convert-tex.js for TeX-sourced posts.
+    return authorMatch ? authorMatch[1] : 'Eugen Nesbakken';
+}
+
+// Category comes from either Clay's rendered YAML code block, or the HTML
+// comment scripts/convert-tex.js injects for TeX-sourced posts.
+function extractCategory(htmlContent) {
     const categoryMatch =
       htmlContent.match(/<span class="an">category:<\/span><span class="co"> ([^<]+)<\/span>/) ||
       htmlContent.match(/<!-- tex-post-meta:.*?category="([^"]*)".*?-->/);
-    const category = categoryMatch ? categoryMatch[1].trim() : 'general';
+    return categoryMatch ? categoryMatch[1].trim() : 'general';
+}
 
-    // Extract tags — same two-source fallback as category.
-    const tagsMatch =
+// Tags use the same two-source fallback as category.
+function extractTags(htmlContent) {
+    const clayTagsMatch =
       htmlContent.match(/<span class="an">tags:<\/span><span class="co"> \[([^\]]+)\]<\/span>/);
-    const texTagsMatch =
-      !tagsMatch && htmlContent.match(/<!-- tex-post-meta:.*?tags="([^"]*)".*?-->/);
-    const tags = tagsMatch
-      ? tagsMatch[1].split(',').map(t => t.trim())
-      : texTagsMatch && texTagsMatch[1]
-        ? texTagsMatch[1].split(',').map(t => t.trim()).filter(Boolean)
-        : [];
-    
-    return { title, date, excerpt, author, category, tags };
+    if (clayTagsMatch) return clayTagsMatch[1].split(',').map(t => t.trim());
+
+    const texTagsMatch = htmlContent.match(/<!-- tex-post-meta:.*?tags="([^"]*)".*?-->/);
+    if (texTagsMatch && texTagsMatch[1]) return texTagsMatch[1].split(',').map(t => t.trim()).filter(Boolean);
+
+    return [];
+}
+
+function extractMetadata(htmlContent, filename) {
+    return {
+        title: extractTitle(htmlContent, filename),
+        date: extractDate(htmlContent, filename),
+        excerpt: extractExcerpt(htmlContent),
+        author: extractAuthor(htmlContent),
+        category: extractCategory(htmlContent),
+        tags: extractTags(htmlContent),
+    };
+}
+
+function ensureDirFor(filePath) {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
 }
 
 function generateBlogIndex() {
@@ -73,13 +101,7 @@ function generateBlogIndex() {
     if (!fs.existsSync(NOTEBOOKS_DIR)) {
         console.warn('⚠ Notebooks directory does not exist:', NOTEBOOKS_DIR);
         console.log('Creating empty blog index...');
-        
-        // Ensure output directory exists
-        const outputDir = path.dirname(OUTPUT_FILE);
-        if (!fs.existsSync(outputDir)) {
-            fs.mkdirSync(outputDir, { recursive: true });
-        }
-        
+        ensureDirFor(OUTPUT_FILE);
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify([], null, 2));
         return;
     }
@@ -95,8 +117,9 @@ function generateBlogIndex() {
         const filepath = path.join(NOTEBOOKS_DIR, filename);
         const content = fs.readFileSync(filepath, 'utf-8');
         const metadata = extractMetadata(content, filename);
-        
+
         return {
+            slug: filename.replace(/\.html$/, '').replace(/_/g, '-').toLowerCase(),
             title: metadata.title,
             date: metadata.date,
             url: `notebooks/${filename}`,
@@ -111,12 +134,8 @@ function generateBlogIndex() {
     // Sort by date (newest first)
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
     
-    // Ensure output directory exists
-    const outputDir = path.dirname(OUTPUT_FILE);
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-    }
-    
+    ensureDirFor(OUTPUT_FILE);
+
     // Write to JSON file
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(posts, null, 2));
     
@@ -181,8 +200,7 @@ function generatePortfolioIndex() {
         return a.title.localeCompare(b.title);
     });
 
-    const outputDir = path.dirname(PORTFOLIO_OUTPUT_FILE);
-    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+    ensureDirFor(PORTFOLIO_OUTPUT_FILE);
     fs.writeFileSync(PORTFOLIO_OUTPUT_FILE, JSON.stringify(projects, null, 2));
 
     console.log(`\n✓ Generated portfolio index with ${projects.length} project(s):`);

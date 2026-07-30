@@ -2,9 +2,20 @@
 
 const BLOG_POSTS_PATH = 'js/blog-posts.json';
 
-// Store all posts for filtering
 let allPosts = [];
-let activeCategory = null;
+let activeCategory = '';
+let activeYear = '';
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+function formatDateLabel(dateStr) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    if (!m || !d) {
+        return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    return `${MONTHS[m - 1]} ${d}, ${y}`;
+}
 
 async function loadAllPosts() {
     const container = document.getElementById('blog-posts');
@@ -12,31 +23,19 @@ async function loadAllPosts() {
 
     try {
         const response = await fetch(BLOG_POSTS_PATH);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const posts = await response.json();
-        allPosts = posts; // Store for filtering
+        allPosts = posts;
 
-        if (posts.length === 0) {
-            container.innerHTML = '<p class="no-posts">No blog posts yet. Check back soon!</p>';
-            return;
-        }
-
-        // Render category filters
+        renderFeaturedPost(posts);
         renderCategoryFilters(posts);
-
-        // Render all posts
-        renderPosts(posts);
+        renderYearFilters(posts);
+        renderFilteredPosts();
 
         console.log(`Loaded ${posts.length} blog posts`);
-
     } catch (error) {
         console.error('Error loading blog posts:', error);
-        console.error('Attempted to fetch from:', BLOG_POSTS_PATH);
-
         container.innerHTML = `
             <div class="error">
                 <p>Unable to load blog posts.</p>
@@ -48,160 +47,153 @@ async function loadAllPosts() {
     }
 }
 
-function renderPosts(posts) {
-    const container = document.getElementById('blog-posts');
+function renderFeaturedPost(posts) {
+    const container = document.getElementById('featured-post');
     if (!container) return;
 
-    container.innerHTML = '';
+    const featured = posts.find(p => p.slug === 'visualizing-random-walks') || posts[0];
+    if (!featured) return;
 
-    if (posts.length === 0) {
-        container.innerHTML = '<p class="no-posts">No posts in this category.</p>';
-        return;
-    }
-
-    posts.forEach(post => {
-        const card = createPostCard(post);
-        container.appendChild(card);
-    });
+    container.innerHTML = `
+        <a href="${featured.url}" class="featured-post">
+            <p class="section-label">Featured</p>
+            <div class="featured-grid">
+                <div>
+                    <div class="featured-meta">
+                        <span class="cat">${featured.category}</span>
+                        <time>${formatDateLabel(featured.date)}</time>
+                    </div>
+                    <h2 class="featured-title">${featured.title}</h2>
+                    <p class="featured-excerpt">${featured.excerpt}</p>
+                    <span class="featured-cta">Read the full entry &rarr;</span>
+                </div>
+            </div>
+        </a>
+    `;
 }
 
 function renderCategoryFilters(posts) {
     const container = document.getElementById('category-filters');
     if (!container) return;
 
-    // Extract unique categories
     const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
 
-    if (categories.length === 0) return;
-
-    // Create "All" button
-    let html = `<button class="category-btn active" data-category="">All</button>`;
-
-    // Create category buttons
+    let html = `<button class="filter-btn active" data-category="">All</button>`;
     categories.forEach(category => {
         const count = posts.filter(p => p.category === category).length;
-        html += `<button class="category-btn" data-category="${category}">${category} (${count})</button>`;
+        html += `<button class="filter-btn" data-category="${category}">${category} (${count})</button>`;
     });
-
     container.innerHTML = html;
 
-    // Add click handlers
-    container.querySelectorAll('.category-btn').forEach(btn => {
+    container.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
-            filterByCategory(category);
-
-            // Update active state
-            container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            activeCategory = btn.dataset.category || '';
+            container.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+            renderFilteredPosts();
         });
     });
 }
 
-function filterByCategory(category) {
-    activeCategory = category || null;
+function renderYearFilters(posts) {
+    const container = document.getElementById('year-filters');
+    if (!container) return;
 
-    if (!category) {
-        renderPosts(allPosts);
-    } else {
-        const filtered = allPosts.filter(post => post.category === category);
-        renderPosts(filtered);
+    const years = [...new Set(posts.map(post => post.date.slice(0, 4)))].sort().reverse();
+
+    let html = `<button class="filter-btn active" data-year="">All</button>`;
+    years.forEach(year => {
+        const count = posts.filter(p => p.date.slice(0, 4) === year).length;
+        html += `<button class="filter-btn" data-year="${year}">${year} (${count})</button>`;
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeYear = btn.dataset.year || '';
+            container.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+            renderFilteredPosts();
+        });
+    });
+}
+
+function renderFilteredPosts() {
+    const filtered = allPosts
+        .filter(p => !activeCategory || p.category === activeCategory)
+        .filter(p => !activeYear || p.date.slice(0, 4) === activeYear);
+
+    renderPosts(filtered);
+}
+
+function renderPosts(posts) {
+    const container = document.getElementById('blog-posts');
+    if (!container) return;
+
+    if (posts.length === 0) {
+        container.innerHTML = '<p class="no-posts">No posts match this filter.</p>';
+        return;
     }
+
+    container.innerHTML = posts.map(createPostRow).join('');
+}
+
+function createPostRow(post) {
+    const tagsHtml = post.tags && post.tags.length > 0
+        ? `<div class="post-tags">${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+        : '';
+
+    return `
+        <article class="post-row">
+            <div class="post-body">
+                <div class="post-meta-row">
+                    <span class="cat">${post.category}</span>
+                    <time>${formatDateLabel(post.date)}</time>
+                </div>
+                <h3 class="post-title"><a href="${post.url}">${post.title}</a></h3>
+                <p class="post-excerpt">${post.excerpt}</p>
+                ${tagsHtml}
+            </div>
+        </article>
+    `;
 }
 
 async function loadRecentPosts(limit = 3) {
     const container = document.getElementById('recent-posts-container');
     if (!container) return;
-    
+
     try {
         const response = await fetch(BLOG_POSTS_PATH);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
         const posts = await response.json();
-        
         const recentPosts = posts.slice(0, limit);
-        
+
         if (recentPosts.length === 0) {
             container.innerHTML = '<p class="no-posts">No blog posts yet.</p>';
             return;
         }
-        
-        // Clear container
-        container.innerHTML = '';
-        
-        // Render recent posts
-        recentPosts.forEach(post => {
-            const card = createPostCard(post);
-            container.appendChild(card);
-        });
-        
+
+        container.innerHTML = recentPosts.map(createEntryRow).join('');
         console.log(`Loaded ${recentPosts.length} recent posts`);
-        
     } catch (error) {
         console.error('Error loading recent posts:', error);
         container.innerHTML = '<p class="no-posts">Posts coming soon!</p>';
     }
 }
 
-function createPostCard(post) {
-    const card = document.createElement('article');
-    card.className = 'post-card';
-    
-    // Format date
-    const date = new Date(post.date);
-    const formattedDate = date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-    
-    // Create category badge
-    const categoryBadge = post.category 
-        ? `<span class="category-badge">${post.category}</span>` 
-        : '';
-    
-    // Create tags
-    const tagsHtml = post.tags && post.tags.length > 0
-        ? `<div class="post-tags">
-             ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-           </div>`
-        : '';
-    
-    card.innerHTML = `
-        <div class="post-header">
-            <h3><a href="${post.url}">${post.title}</a></h3>
-            ${categoryBadge}
+function createEntryRow(post) {
+    return `
+        <div class="entry-row">
+            <div class="entry-meta">
+                <span class="cat">${post.category}</span>
+                <span>${formatDateLabel(post.date)}</span>
+            </div>
+            <p class="entry-title"><a href="${post.url}">${post.title}</a></p>
+            <p class="entry-excerpt">${post.excerpt}</p>
         </div>
-        <p class="post-meta">
-            <time datetime="${post.date}">${formattedDate}</time>
-        </p>
-        <p class="post-excerpt">${post.excerpt}</p>
-        ${tagsHtml}
-        <a href="${post.url}" class="read-more">Read more →</a>
     `;
-    
-    return card;
-}
-
-// Filter posts by category or tag (optional feature)
-function filterPosts(posts, category = null, tag = null) {
-    let filtered = posts;
-    
-    if (category) {
-        filtered = filtered.filter(post => post.category === category);
-    }
-    
-    if (tag) {
-        filtered = filtered.filter(post => post.tags && post.tags.includes(tag));
-    }
-    
-    return filtered;
 }
 
 // Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { loadAllPosts, loadRecentPosts, filterPosts };
+    module.exports = { loadAllPosts, loadRecentPosts };
 }

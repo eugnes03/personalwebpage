@@ -42,51 +42,27 @@
         });
     }
 
-    // ── Cards ──────────────────────────────────────────────────────────────────
+    // ── Rows ───────────────────────────────────────────────────────────────────
     function renderCards(cat) {
         const filtered = cat === 'all' ? allProjects : allProjects.filter(p => p.category === cat);
         if (filtered.length === 0) {
             grid.innerHTML = '<p class="portfolio-empty">No projects in this category yet.</p>';
             return;
         }
-        grid.innerHTML = filtered.map((p, i) => cardHTML(p, i)).join('');
-        grid.querySelectorAll('.pf-card').forEach(card => {
-            card.addEventListener('click', () => openModal(card.dataset.index));
+        grid.innerHTML = filtered.map((p, i) => rowHTML(p, i)).join('');
+        grid.querySelectorAll('.pf-row').forEach(row => {
+            row.addEventListener('click', () => openModal(row.dataset.index));
         });
     }
 
-    function cardHTML(p, i) {
-        const dateStr = p.date ? `<span class="pf-card-date">${formatDate(p.date)}</span>` : '';
-        const desc    = p.description ? `<p class="pf-card-desc">${p.description}</p>` : '';
+    function rowHTML(p, i) {
+        const dateStr = p.date ? `<span class="pf-row-date">${formatDate(p.date)}</span>` : '';
         return `
-        <article class="pf-card" data-index="${i}" tabindex="0" role="button" aria-label="Open ${p.title}">
-            <div class="pf-card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="9" y1="13" x2="15" y2="13"></line>
-                    <line x1="9" y1="17" x2="13" y2="17"></line>
-                </svg>
-            </div>
-            <div class="pf-card-body">
-                <div class="pf-card-meta">
-                    <span class="pf-card-cat">${p.category}</span>
-                    ${dateStr}
-                </div>
-                <h3 class="pf-card-title">${p.title}</h3>
-                ${desc}
-            </div>
-            <div class="pf-card-footer">
-                <span class="pf-card-cta">
-                    Read
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </span>
-            </div>
-        </article>`;
+        <button class="pf-row" data-index="${i}" aria-label="Open ${p.title}">
+            <span class="pf-row-cat">${p.category}</span>
+            <span class="pf-row-title">${p.title}</span>
+            ${dateStr}
+        </button>`;
     }
 
     function formatDate(d) {
@@ -124,11 +100,4 @@
     btnClose.addEventListener('click', closeModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // Keyboard-activate cards
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && document.activeElement.classList.contains('pf-card')) {
-            openModal(document.activeElement.dataset.index);
-        }
-    });
 })();
