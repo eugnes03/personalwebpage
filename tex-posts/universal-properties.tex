@@ -1,0 +1,85 @@
+---
+title: "Universal Properties: What They're Actually Saying"
+author: "Eugen Nesbakken"
+date: "2026-07-30"
+description: "Universal properties look like arbitrary commuting diagrams until you see the one idea behind all of them, unique factorization through a distinguished object, for every possible comparison object."
+category: mathematics
+tags: [category-theory, algebra]
+---
+
+\section{A definition that looks right and isn't}
+
+Take $A = \mathbb{R}$ and $B = \mathbb{R}$. You already know their product is $\mathbb{R}^2$, with the two coordinate projections $p_1, p_2 : \mathbb{R}^2 \to \mathbb{R}$. But suppose you'd never seen that construction and someone handed you this definition instead:
+
+\begin{quote}
+$P$ deserves to be called a product of $A$ and $B$ if it comes equipped with some pair of maps $p_1 : P \to A$ and $p_2 : P \to B$.
+\end{quote}
+
+That sounds reasonable. It's also wrong, and the way it's wrong is the whole point of this post.
+
+Take $P = A = \mathbb{R}$ itself. Let $p_1 = \mathrm{id}_A$ and $p_2(x) = x^2$. Both are maps out of $P$, one landing in $A$ and one in $B$, so by the definition above, $P = \mathbb{R}$ qualifies as a product of $\mathbb{R}$ and $\mathbb{R}$. But $\mathbb{R}$ is one-dimensional and $\mathbb{R}^2$ is two-dimensional. Something has gone badly wrong, and it isn't a technicality, it's that the definition never said anything about what $P$ is supposed to \emph{do}.
+
+A product is supposed to do this: given any pair of compatible values, one for $A$ and one for $B$, you should be able to recover them both from a single point of $P$, and that point should be the only one that works. Let's test $P = \mathbb{R}$ against that.
+
+Let $S = \{*\}$ be a single point, and suppose you're handed $f : S \to A$ with $f(*) = 3$. Now consider two candidates for $g : S \to B$.
+
+\textbf{Case $g(*) = 9$.} You're looking for $h : S \to P$ with $p_1(h(*)) = 3$ and $p_2(h(*)) = 9$. Since $p_1 = \mathrm{id}_A$, this forces $h(*) = 3$. Check the second condition: $p_2(3) = 3^2 = 9$. It works, and $h(*) = 3$ is the only value consistent with $p_1(h(*)) = 3$ in the first place, so $h$ is unique. So far, so good.
+
+\textbf{Case $g(*) = 5$.} Same reasoning: $p_1(h(*)) = 3$ forces $h(*) = 3$. But then $p_2(h(*)) = 9$, not $5$. There is no $h$ at all.
+
+That's the failure, laid bare. A genuine product has to work for \emph{every} choice of $f$ and $g$, not just the ones that happen to be compatible with whatever formula you bolted onto $p_2$. $\mathbb{R}$ with $p_1 = \mathrm{id}$, $p_2 = (\cdot)^2$ only recovers pairs $(a,b)$ with $b = a^2$. It's not that this $P$ is a broken product, it's that it isn't a product at all: it silently smuggled in a constraint relating $A$ and $B$ that has nothing to do with the actual product structure. The real $\mathbb{R}^2$, with $p_1, p_2$ the honest coordinate projections, handles $g(*) = 5$ fine: take $h(*) = (3,5)$.
+
+So the fix isn't to patch the definition with extra conditions on $p_1, p_2$. It's to stop describing $P$ by what maps happen to come attached to it, and instead describe it by how it responds to \emph{every} test object.
+
+\section{The actual universal property}
+
+\begin{definition}[Product]
+$P$, together with maps $p_1 : P \to A$ and $p_2 : P \to B$, is a product of $A$ and $B$ if for every object $S$ and every pair of maps $f : S \to A$, $g : S \to B$, there exists a unique map $h : S \to P$ (with $p_1 h = f$ and $p_2 h = g$) making the diagram below commute.
+\end{definition}
+
+\includegraphics[width=0.55\textwidth]{images/tikz/universal-property-product.png}
+
+Read it as a promise: no matter what $S$ is, no matter what compatible data $(f, g)$ you throw at $A$ and $B$ from $S$, there is exactly one way to route that data through $P$. $P$ isn't defined by its internal contents, it's defined by being the unique bottleneck that every comparison object has to factor through. "Unique for every $S$" is not a side condition, it's the entire content of the definition. The failed attempt in Section 1 only checked one comparison object at a time and got lucky on some of them; the real definition demands the whole family of tests pass simultaneously, which is exactly the condition that pins down $P$ up to unique isomorphism.
+
+\section{Same shape, opposite direction: the free group}
+
+Now a completely different construction, and watch the direction of the arrows.
+
+\begin{definition}[Free group]
+Let $X$ be a set. A group $F$, together with a function $i : X \to F$, is the free group on $X$ if for every group $G$ and every function $\varphi : X \to G$, there exists a unique group homomorphism $h : F \to G$ such that $h \circ i = \varphi$.
+\end{definition}
+
+\includegraphics[width=0.4\textwidth]{images/tikz/universal-property-free-group.png}
+
+Concretely, $F$ is words in the letters of $X$ and their formal inverses, no relations beyond cancellation, and $i$ sends each element of $X$ to the corresponding one-letter word. The universal property says: to define a homomorphism out of $F$, it's enough, and it's forced, to say where the generators go. Pick images $\varphi(x) \in G$ for each $x \in X$, arbitrarily, with no constraints, and there is exactly one homomorphism $h : F \to G$ extending that choice. That's why it's called free: $F$ imposes no relations of its own, so specifying a map out of it is as unconstrained as specifying a function out of $X$.
+
+\section{The same idea, reflected}
+
+Put the two diagrams side by side.
+
+In the product property, the test object $S$ maps \emph{into} $A$ and $B$, and the claim is that this data factors uniquely through $P$ from outside: $S \to P \to A, B$. $P$ sits downstream of every test, absorbing incoming data. That's a limit shape.
+
+In the free group property, the test object $G$ receives a map, and the claim is that data \emph{out} of $X$ factors uniquely through $F$ on its way to $G$: $X \to F \to G$. $F$ sits upstream of every test, dispatching outgoing data. That's a colimit, or left-adjoint, shape.
+
+Reverse every arrow in the product definition, swap "every $S$ with maps in" for "every $G$ with maps out," and you get exactly the shape of the free group definition. They're the same sentence read in a mirror. What's invariant is not the direction of the arrows, it's the structure of the claim: there's a distinguished object, there's a class of comparison objects with compatible data attached, and the compatible data always factors through the distinguished object in exactly one way.
+
+The two directions correspond to two different jobs. The product is universal because it's the \emph{most constrained} object that's still consistent with every possible pair of inputs, the smallest thing forced to see all of $f$ and $g$ at once. The free group is universal because it's the \emph{least constrained} object consistent with a given output behavior, nothing is true in $F$ except what's forced by being a group. One is "most consistent data," the other is "least excess data," and the uniqueness clause is doing the same job in both: pinning the object down so there's no slack left over.
+
+\section{A third instance: sheafification}
+
+You'll meet the same shape again the first time you sheafify a presheaf. Given a presheaf $F$ on a space (or site), its sheafification $F^{\mathrm{sh}}$ comes with a map $\eta : F \to F^{\mathrm{sh}}$, and the universal property says: for every sheaf $G$ and every morphism of presheaves $\varphi : F \to G$, there's a unique morphism of sheaves $h : F^{\mathrm{sh}} \to G$ with $h \circ \eta = \varphi$.
+
+Look at the shape: a distinguished object $F^{\mathrm{sh}}$, receiving a map from $F$, and every comparison object $G$ that $F$ maps into gets that map factored uniquely through $F^{\mathrm{sh}}$ instead. That's exactly the free group pattern, $X \to F \to G$ becomes $F \to F^{\mathrm{sh}} \to G$. You don't need the actual construction of $F^{\mathrm{sh}}$ (stalks, local sections, the sheafification functor) to see why it's called universal: it's initial among maps from $F$ into sheaves, the same way the free group is initial among maps from $X$ into groups. The construction is what makes it exist. The universal property is what tells you what it \emph{is}, independent of how you built it, and it's why any two sheafifications of the same $F$ are canonically isomorphic without you having to compare their internals at all.
+
+\section{A checklist for spotting one}
+
+When you run into a definition that claims to be a universal property, check for four things at once:
+
+\begin{enumerate}
+\item A distinguished object, with some structure maps attached to it.
+\item A class of test objects, each carrying data of a fixed shape (maps in, or maps out, compatible with the structure maps).
+\item A claim that any such data factors through the distinguished object.
+\item Uniqueness of that factorization.
+\end{enumerate}
+
+Drop item (3) or (4) and you're back to the broken product from Section 1: some maps attached to an object, no promise about how it relates to anything else. Item (2), "for every test object," is what makes it a statement about \emph{all} of category theory's relevant objects at once rather than a coincidence about one specific comparison. And uniqueness in item (4) is what turns "$P$ works" into "$P$ is the only thing, up to isomorphism, that could possibly work," which is the actual reason universal properties let you talk about \emph{the} product, \emph{the} free group, \emph{the} sheafification, with a definite article, before you've built any of them.

@@ -1,5 +1,19 @@
 [
   {
+    "slug": "universal-properties",
+    "title": "Universal Properties: What They’re Actually Saying",
+    "date": "2026-07-30",
+    "url": "notebooks/universal-properties.html",
+    "excerpt": "Universal properties look like arbitrary commuting diagrams until you see the one idea behind all of them, unique factorization through a distinguished object, for every possible comparison object.",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "category-theory",
+      "algebra"
+    ],
+    "filename": "universal-properties.html"
+  },
+  {
     "slug": "wiener-chaos-fourier-analogy",
     "title": "The Wiener Chaos Decomposition, Explained Like a Fourier Series",
     "date": "2026-07-30",

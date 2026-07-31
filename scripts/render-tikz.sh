@@ -31,6 +31,7 @@ cat > "$TMPDIR/tikz.tex" << 'HEADER'
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes,backgrounds,decorations.pathmorphing,decorations.markings,patterns,matrix,fit,chains}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
