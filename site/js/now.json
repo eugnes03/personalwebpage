@@ -1,0 +1,15 @@
+{
+    "updated": "2026-07-30",
+    "reading": [
+        { "title": "Ravi Vakil — <em>The Rising Sea: Foundations of Algebraic Geometry</em>", "meta": "Chapter 3" },
+        { "title": "Nualart — <em>The Malliavin Calculus and Related Topics</em>", "meta": "Chapter 1" }
+    ],
+    "proving": {
+        "title": "Schur's Lemma applied to tensor decompositions",
+        "progress": 62
+    },
+    "building": {
+        "title": "MathAtlas — interactive knowledge graph",
+        "meta": "v0.3, in progress"
+    }
+}

@@ -78,6 +78,45 @@
             </div>
         </section>
 
+        <div class="hairline-divider"></div>
+
+        <section style="padding: 32px 0;">
+            <p class="section-label">Live Mathematics</p>
+            <div class="viz-grid">
+                <div>
+                    <p class="viz-intro">A different structure renders each time you visit &mdash; drawn live, in your browser, from the same objects I study in my notebooks.</p>
+                    <p class="viz-caption">600-step random walk in the plane</p>
+                    <button class="btn" onclick="regenerateViz()">Regenerate</button>
+                </div>
+                <div class="viz-canvas-wrap">
+                    <canvas id="viz-canvas" width="440" height="320"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <div class="hairline-divider"></div>
+
+        <section style="padding: 32px 0;">
+            <div class="now-panel-header">
+                <p class="section-label" style="margin-bottom:0">Right Now</p>
+                <p class="now-updated" id="now-updated"></p>
+            </div>
+
+            <div id="now-reading-rows"></div>
+
+            <div class="now-row">
+                <p class="now-row-label">Proving</p>
+                <p class="now-row-title" id="now-proving-title"></p>
+                <div class="now-progress"><div class="now-progress-fill" id="now-proving-progress"></div></div>
+            </div>
+
+            <div class="now-row">
+                <p class="now-row-label">Building</p>
+                <p class="now-row-title" id="now-building-title"></p>
+                <p class="now-row-meta" id="now-building-meta"></p>
+            </div>
+        </section>
+
         <section style="padding-top: 24px;">
             <p class="section-label">Recent Entries</p>
             <div id="recent-posts-container" class="entries-list">
@@ -97,5 +136,6 @@
             loadRecentPosts(3);
         });
     </script>
+    <script src="js/additions.js"></script>
 </body>
 </html>

@@ -76,9 +76,53 @@
                 </div>
             </section>
 
+            <!-- Activity -->
+            <section class="about-section">
+                <div class="now-panel-header">
+                    <p class="about-section-title" style="margin-bottom:0">IV. Activity</p>
+                    <p class="now-updated" id="heatmap-total">&mdash; contributions in the last year</p>
+                </div>
+                <div class="heatmap-scroll">
+                    <div class="heatmap-grid" id="heatmap-grid"></div>
+                </div>
+                <div class="heatmap-legend">
+                    <span>Less</span>
+                    <div class="heatmap-cell" style="background:#efe8d8"></div>
+                    <div class="heatmap-cell" style="background:#e3c9bf"></div>
+                    <div class="heatmap-cell" style="background:#c08876"></div>
+                    <div class="heatmap-cell" style="background:#a3543f"></div>
+                    <div class="heatmap-cell" style="background:#7a2e22"></div>
+                    <span>More</span>
+                </div>
+            </section>
+
+            <!-- Chess rating -->
+            <section class="about-section">
+                <p class="about-section-title">V. Chess Rating</p>
+                <div class="elo-stats">
+                    <div>
+                        <p class="elo-stat-label">Current</p>
+                        <p class="elo-current" id="elo-current">&mdash;</p>
+                    </div>
+                    <div>
+                        <p class="elo-stat-label">Peak</p>
+                        <p class="elo-peak" id="elo-peak">&mdash;</p>
+                    </div>
+                    <span class="elo-change" id="elo-change"></span>
+                </div>
+                <div class="elo-chart-wrap">
+                    <canvas id="elo-canvas" width="768" height="180"></canvas>
+                </div>
+                <div class="elo-tf-buttons">
+                    <button class="elo-tf-btn" id="elo-tf-3m" onclick="setEloTimeframe('3M')">3M</button>
+                    <button class="elo-tf-btn active" id="elo-tf-1y" onclick="setEloTimeframe('1Y')">1Y</button>
+                    <button class="elo-tf-btn" id="elo-tf-all" onclick="setEloTimeframe('ALL')">All</button>
+                </div>
+            </section>
+
             <!-- About this site -->
             <section class="about-section">
-                <p class="about-section-title">IV. About This Site</p>
+                <p class="about-section-title">VI. About This Site</p>
                 <p>
                     The notebooks on this website are written in <strong>Clojure</strong> and rendered using <a href="https://github.com/scicloj/clay" target="_blank" rel="noopener">Clay</a> and <a href="https://quarto.org" target="_blank" rel="noopener">Quarto</a>, inspired by the <a href="https://clojurians.zulipchat.com/#narrow/channel/321125-clojure-data-cookbook" target="_blank" rel="noopener">Clojure Civitas</a> community.
                 </p>
@@ -89,7 +133,7 @@
 
             <!-- Contact -->
             <section class="about-section about-section-last">
-                <p class="about-section-title">V. Get in Touch</p>
+                <p class="about-section-title">VII. Get in Touch</p>
                 <p>
                     Questions, comments, collaboration ideas, feel free to reach out. I'm always happy to talk mathematics, programming, or anything in between.
                 </p>
@@ -105,5 +149,6 @@
         </div>
     </footer>
 
+    <script src="js/additions.js"></script>
 </body>
 </html>
