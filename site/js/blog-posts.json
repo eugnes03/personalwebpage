@@ -1,11 +1,26 @@
 [
   {
+    "slug": "wiener-chaos-fourier-analogy",
+    "title": "The Wiener Chaos Decomposition, Explained Like a Fourier Series",
+    "date": "2026-07-30",
+    "url": "notebooks/wiener-chaos-fourier-analogy.html",
+    "excerpt": "Wiener chaos decomposes random variables on Gaussian space by polynomial degree, the same way Fourier series decomposes functions by frequency.",
+    "author": "Eugen Nesbakken",
+    "category": "mathematics",
+    "tags": [
+      "probability",
+      "malliavin-calculus",
+      "functional-analysis"
+    ],
+    "filename": "wiener-chaos-fourier-analogy.html"
+  },
+  {
     "slug": "modules",
     "title": "R-Modules in Clojure",
     "date": "2026-03-06",
     "url": "notebooks/modules.html",
     "excerpt": "Encoding R-module structure in Clojure",
-    "author": "Eugen",
+    "author": "Eugen Nesbakken",
     "category": "mathematics",
     "tags": [
       "algebra",
@@ -33,7 +48,7 @@
     "date": "2026-02-26",
     "url": "notebooks/subgroup_lattice.html",
     "excerpt": "Enumerating all subgroups of a finite group and visualising their inclusion relations as a Hasse diagram, demonstrated on cyclic, dihedral, and symmetric groups.",
-    "author": "Eugen",
+    "author": "Eugen Nesbakken",
     "category": "mathematics",
     "tags": [
       "algebra",
@@ -48,7 +63,7 @@
     "date": "2026-02-25",
     "url": "notebooks/visualizing_random_walks.html",
     "excerpt": "Simulating and visualising random walks on GL₂(𝔽ₚ): generating sets, empirical convergence to uniform, total-variation distance, and the spectral gap.",
-    "author": "Eugen",
+    "author": "Eugen Nesbakken",
     "category": "mathematics",
     "tags": [
       "algebra",
@@ -64,7 +79,7 @@
     "date": "2026-02-17",
     "url": "notebooks/week1.html",
     "excerpt": "Research Project",
-    "author": "Eugen",
+    "author": "Eugen Nesbakken",
     "category": "mathematics",
     "tags": [
       "algebra",
@@ -79,7 +94,7 @@
     "date": "2026-02-07",
     "url": "notebooks/rep_theory_category_theory.html",
     "excerpt": "Category Theory in Representation Theory",
-    "author": "Eugen",
+    "author": "Eugen Nesbakken",
     "category": "mathematics",
     "tags": [
       "algebra",

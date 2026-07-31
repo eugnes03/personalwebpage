@@ -1,6 +1,6 @@
 ^{:kindly/hide-code true
   :clay {:title  "Week 1: Random Walks on the General Linear Group of Fp"
-         :quarto {:author      :Eugen
+         :quarto {:author      "Eugen Nesbakken"
                   :description "Research Project"
                   :type        :post
                   :date        "2026-02-17"

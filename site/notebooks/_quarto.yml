@@ -37,12 +37,9 @@ format:
       - text: |
           <script>
           (function(){
-            var brand = document.querySelector('.navbar-brand');
-            if(brand){
-              brand.innerHTML = '<img src="https://eugnes03.github.io/personalwebpage/assets/images/portrait.jpeg" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;filter:grayscale(35%);border:1px solid #ddd3bf;"><span style="font-style:italic;font-size:15px;margin-left:10px;color:#2b2420;">E. Nesbakken</span>';
-              brand.href = 'https://eugnes03.github.io/personalwebpage/index.html';
-              brand.style.display = 'flex';
-              brand.style.alignItems = 'center';
+            var container = document.querySelector('.navbar-brand-container');
+            if(container){
+              container.innerHTML = '<a href="https://eugnes03.github.io/personalwebpage/index.html" class="navbar-brand" style="display:flex;align-items:center;"><img src="https://eugnes03.github.io/personalwebpage/assets/images/portrait.jpeg" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;filter:grayscale(35%);border:1px solid #ddd3bf;"><span style="font-style:italic;font-size:15px;margin-left:10px;color:#2b2420;">E. Nesbakken</span></a>';
             }
             var titleBlock = document.querySelector('#title-block-header') || document.querySelector('.quarto-title-banner');
             if (titleBlock && titleBlock.parentNode) {

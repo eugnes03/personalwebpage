@@ -1,6 +1,6 @@
 ^{:kindly/hide-code false
   :clay {:title  "R-Modules in Clojure"
-         :quarto {:author      :Eugen
+         :quarto {:author      "Eugen Nesbakken"
                   :description "Encoding R-module structure in Clojure"
                   :type        :post
                   :date        "2026-03-06"

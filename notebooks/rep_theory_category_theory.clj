@@ -1,6 +1,6 @@
 ^{:kindly/hide-code true
   :clay {:title  "A Categorical View of Representation Theory"
-         :quarto {:author      :Eugen
+         :quarto {:author      "Eugen Nesbakken"
                   :description "Category Theory in Representation Theory"
                   :type        :post
                   :date        "2026-02-07"

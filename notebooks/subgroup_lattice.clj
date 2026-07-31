@@ -1,6 +1,6 @@
 ^{:kindly/hide-code true
   :clay {:title  "Subgroup Lattices of Finite Groups"
-         :quarto {:author      :Eugen
+         :quarto {:author      "Eugen Nesbakken"
                   :description "Enumerating all subgroups of a finite group and visualising their inclusion relations as a Hasse diagram, demonstrated on cyclic, dihedral, and symmetric groups."
                   :type        :post
                   :date        "2026-02-26"

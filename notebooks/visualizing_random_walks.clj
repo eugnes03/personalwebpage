@@ -1,6 +1,6 @@
 ^{:kindly/hide-code true
   :clay {:title  "Visualizing Random Walks on GL₂(𝔽ₚ)"
-         :quarto {:author      :Eugen
+         :quarto {:author      "Eugen Nesbakken"
                   :description "Simulating and visualising random walks on GL₂(𝔽ₚ): generating sets, empirical convergence to uniform, total-variation distance, and the spectral gap."
                   :type        :post
                   :date        "2026-02-25"
